@@ -33,6 +33,9 @@ export default {
   display: flex;
   flex-direction: column;
 
+  padding: 5px;
+  border: 2px solid white;
+
   &__cellRow {
     display: flex;
   }

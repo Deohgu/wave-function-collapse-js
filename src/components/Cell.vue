@@ -17,11 +17,9 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
-  margin: 1px;
+  background-color: white;
+  margin: 2px;
   width: 50px;
   height: 50px;
-
-  color: white;
 }
 </style>
