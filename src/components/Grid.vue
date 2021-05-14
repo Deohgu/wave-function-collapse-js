@@ -5,6 +5,8 @@
       v-for="(cellcol, cellcolIndex) in height"
       :key="cellcolIndex"
     >
+    <!-- If statment inside this or the actual cell? -->
+    <!-- Checks neighbours and changes original value to false (starts as true) (meaning that it does not match) -->
       <Cell
         :x="cellRow"
         :y="cellcol"
