@@ -6,8 +6,8 @@
       :key="cellcolIndex"
     >
       <Cell
-        :x="cellRowIndex"
-        :y="cellcolIndex"
+        :x="cellRow"
+        :y="cellcol"
         v-for="(cellRow, cellRowIndex) in width"
         :key="cellRowIndex"
       />
