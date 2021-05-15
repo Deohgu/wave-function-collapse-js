@@ -2,11 +2,11 @@
   <div class="grid">
     <div
       class="grid__cellRow"
-      v-for="(cellcol, cellcolIndex) in height"
+      v-for="(cellcol, cellcolIndex) in gridGenerator(8, 8)"
       :key="cellcolIndex"
     >
-    <!-- If statment inside this or the actual cell? -->
-    <!-- Checks neighbours and changes original value to false (starts as true) (meaning that it does not match) -->
+      <!-- If statment inside this or the actual cell? -->
+      <!-- Checks neighbours and changes original value to false (starts as true) (meaning that it does not match) -->
       <Cell
         :x="cellRow"
         :y="cellcol"
@@ -19,6 +19,9 @@
 
 <script>
 import Cell from "./Cell";
+import gridGenerator from "../utils/gridGenerator";
+
+console.log(gridGenerator(8, 8)[0]);
 
 export default {
   name: "grid",
