@@ -1,3 +1,3 @@
-export const traverseGrid = (grid) => {
- grid.forEach()
-}
+// export const traverseGrid = (grid) => {
+//  grid.forEach()
+// }
