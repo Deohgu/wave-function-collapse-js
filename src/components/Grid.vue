@@ -2,23 +2,23 @@
   <div class="grid">
     <div
       class="grid__cellRow"
-      v-for="(cellCol, cellColIndex) in gridArray"
-      :key="cellColIndex"
+      v-for="(cellRow, cellRowIndex) in gridArray"
+      :key="cellRowIndex"
     >
       <Cell
-        :x="cellRowIndex + 1"
-        :y="cellColIndex + 1"
-        v-for="(cellRow, cellRowIndex) in cellCol"
-        :key="cellRowIndex"
+        :x="cellColIndex + 1"
+        :y="cellRowIndex + 1"
+        v-for="(cellCol, cellColIndex) in cellRow"
+        :key="cellColIndex"
       />
     </div>
   </div>
 </template>
 
 <script>
-import Cell from "./Cell";
-import gridGenerator from "../utils/gridGenerator";
-// import store from "../store";
+import Cell from "@/components/Cell.vue";
+import gridGenerator from "@/utils/gridGenerator";
+// import store from ".@/store";
 import { mapGetters } from "vuex";
 
 // store updating testing
