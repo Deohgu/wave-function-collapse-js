@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Grid :width="8" :height="8" />
+    <Grid :width="4" :height="4" />
   </div>
 </template>
 
