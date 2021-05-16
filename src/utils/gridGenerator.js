@@ -1,8 +1,8 @@
 export default (width, height) => {
   const generatedArr = [[]];
-  for (let i = 0; i < width; i++) {
+  for (let i = 0; i < height; i++) {
     generatedArr[i] = [];
-    for (let j = 0; j < height; j++) {
+    for (let j = 0; j < width; j++) {
       generatedArr[i][j] = "empty";
     }
   }
