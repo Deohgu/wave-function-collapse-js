@@ -42,11 +42,11 @@ export default {
       for (const newState in payload) {
         // console.log("Error logging : ", state, newState);
         if (Object.prototype.hasOwnProperty.call(state, newState)) {
-          console.log("newState: ", newState);
+          // console.log("newState: ", newState);
           const addToState = {};
           // Check if payload properties exist in state
           for (const newStateProp in payload[newState]) {
-            console.log("prop in newState: ", newStateProp);
+            // console.log("prop in newState: ", newStateProp);
             if (
               Object.prototype.hasOwnProperty.call(
                 state[newState],
@@ -60,11 +60,16 @@ export default {
               );
             }
           }
+          // TODO:
+          // If equal to original state do not commit
           commit(`${newState}Update`, addToState);
         } else {
           console.log(`ERROR! ${newState} is not a valid identity.`);
         }
       }
     },
+  },
+  getters: {
+    identitiesArray: (state) => Object.entries(state),
   },
 };
