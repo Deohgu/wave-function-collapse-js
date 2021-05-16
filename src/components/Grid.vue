@@ -2,15 +2,13 @@
   <div class="grid">
     <div
       class="grid__cellRow"
-      v-for="(cellcol, cellcolIndex) in gridGenerator(8, 8)"
-      :key="cellcolIndex"
+      v-for="(cellCol, cellColIndex) in gridArray"
+      :key="cellColIndex"
     >
-      <!-- If statment inside this or the actual cell? -->
-      <!-- Checks neighbours and changes original value to false (starts as true) (meaning that it does not match) -->
       <Cell
-        :x="cellRow"
-        :y="cellcol"
-        v-for="(cellRow, cellRowIndex) in width"
+        :x="cellRowIndex + 1"
+        :y="cellColIndex + 1"
+        v-for="(cellRow, cellRowIndex) in cellCol"
         :key="cellRowIndex"
       />
     </div>
@@ -20,8 +18,13 @@
 <script>
 import Cell from "./Cell";
 import gridGenerator from "../utils/gridGenerator";
+// import store from "../store";
+import { mapGetters } from "vuex";
 
-console.log(gridGenerator(8, 8)[0]);
+// store updating testing
+// console.log("store.state.water: ", store.state.identities.water);
+// store.dispatch("updateIndentity", { water: { color: "pink" } });
+// console.log("store.state.water: ", store.state.identities.water);
 
 export default {
   name: "grid",
@@ -29,7 +32,15 @@ export default {
     width: Number,
     height: Number,
   },
+  data() {
+    return {
+      gridArray: gridGenerator(this.width, this.height),
+    };
+  },
   components: { Cell },
+  computed: {
+    ...mapGetters(["water", "coast", "land", "mountain"]),
+  },
 };
 </script>
 
