@@ -3,15 +3,18 @@ export default {
     water: {
       colour: "blue",
       rulesDescription: "Water can only be near Coast or itself",
+      symbol: "≈",
     },
     coast: {
       colour: "light brown",
       rulesDescription: "Coast must have Land on one side and Sea on the other",
+      symbol: "◢",
     },
-    land: { colour: "green" },
+    land: { colour: "green", symbol: "↟" },
     mountain: {
       colour: "dark grey",
       rulesDescription: "Mountain can only be near Land or itself",
+      symbol: "◮",
     },
   }),
   // TODO:

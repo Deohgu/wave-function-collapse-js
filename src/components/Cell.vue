@@ -8,8 +8,9 @@
       class="cell__identity"
       v-for="(identity, identityIndex) in identitiesArray"
       :key="identityIndex"
+      :class="identity[0]"
     >
-      {{ identity[0] }}
+      {{ identity[1].symbol }}
     </div>
     {{ logToConsole(identitiesArray) }}
   </div>
@@ -47,11 +48,26 @@ export default {
   height: 100px;
 
   &__identity {
-    font-size: 8px;
+    font-size: 35px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid red;
+  }
+
+  .water {
+    background-color: hsl(218.02, 51.78%, 50.39%);
+  }
+
+  .coast {
+    background-color: hsl(41.2, 80.5%, 75.9%);
+  }
+
+  .land {
+    background-color: rgb(21, 160, 0);
+  }
+
+  .mountain {
+    background-color: hsl(0, 0%, 46.3%);
   }
 }
 </style>
