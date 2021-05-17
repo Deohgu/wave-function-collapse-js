@@ -35,19 +35,12 @@ export default {
 
 <style lang="scss">
 // TODO:
-// Makes this a flexible grid using grid
-// Items need to have a ratio of 1:1
+// Makes this a flexible grid to adapt based on the number of identities
 
 .cell {
   display: grid;
-  grid-template-rows: auto auto;
-  grid-template-columns: auto auto;
-  // justify-content: space-evenly;
-  align-content: stretch;
-  // flex-wrap: wrap;
-  // flex: 1;
-  // justify-content: center;
-  // align-items: center;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   background-color: white;
   margin: 2px;
   width: 100px;
@@ -55,13 +48,10 @@ export default {
 
   &__identity {
     font-size: 8px;
-    aspect-ratio: 1/1;
     display: flex;
     justify-content: center;
-    align-content: center;
-    // flex: 1;
+    align-items: center;
     border: 1px solid red;
-    // height: 100%;
   }
 }
 </style>
