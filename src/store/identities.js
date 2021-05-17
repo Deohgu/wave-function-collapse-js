@@ -17,9 +17,6 @@ export default {
       symbol: "◮",
     },
   }),
-  // TODO:
-  // Reduce these to just one that update based on the payload
-  // Or reduce the actions just to one?
   mutations: {
     waterUpdate(state, payload) {
       state.water = { ...state.water, ...payload };
@@ -40,16 +37,12 @@ export default {
      * @param {Object} payload - Object with one key being one of the existing states to update, i.e: water, coast, etc.
      */
     updateIndentity({ commit, state }, payload) {
-      // console.log("state in updateIdentities : ", state);
       // Check if payload state exists
       for (const newState in payload) {
-        // console.log("Error logging : ", state, newState);
         if (Object.prototype.hasOwnProperty.call(state, newState)) {
-          // console.log("newState: ", newState);
           const addToState = {};
           // Check if payload properties exist in state
           for (const newStateProp in payload[newState]) {
-            // console.log("prop in newState: ", newStateProp);
             if (
               Object.prototype.hasOwnProperty.call(
                 state[newState],

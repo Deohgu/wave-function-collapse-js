@@ -1,8 +1,4 @@
 <template>
-  <!-- TODO: -->
-  <!-- Cell maps an array containing the potential identities and displays them -->
-  <!-- Identities are will not display as they are removed from the array -->
-  <!-- <div class="cell">{{ `${x}:${y}` }}</div> -->
   <div class="cell">
     <div
       class="cell__identity"
@@ -12,12 +8,21 @@
     >
       {{ identity[1].symbol }}
     </div>
-    {{ logToConsole(identitiesArray) }}
+    <!-- {{ logToConsole(identitiesArray) }} -->
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+
+// TESTING grid traverse algorithm ///
+// eslint-disable-next-line
+import gridTraverse from "@/utils/gridTraverse";
+import gridGenerator from "@/utils/gridGenerator";
+import store from "@/store";
+// console.log(store.getters.identitiesArray);
+gridTraverse(store.state.identities, gridGenerator(8, 8));
+////////////
 
 export default {
   name: "cell",
@@ -42,7 +47,6 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  background-color: white;
   margin: 2px;
   width: 100px;
   height: 100px;
@@ -55,19 +59,19 @@ export default {
   }
 
   .water {
-    background-color: hsl(218.02, 51.78%, 50.39%);
+    color: hsl(218.02, 51.78%, 50.39%);
   }
 
   .coast {
-    background-color: hsl(41.2, 80.5%, 75.9%);
+    color: hsl(41.2, 80.5%, 75.9%);
   }
 
   .land {
-    background-color: rgb(21, 160, 0);
+    color: rgb(21, 160, 0);
   }
 
   .mountain {
-    background-color: hsl(0, 0%, 46.3%);
+    color: hsl(0, 0%, 46.3%);
   }
 }
 </style>
