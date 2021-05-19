@@ -1,4 +1,5 @@
 export default {
+  // grass/land: ░ / ⵘ /   Use the other for the trees
   state: () => ({
     water: {
       colour: "blue",
