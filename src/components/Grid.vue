@@ -6,8 +6,7 @@
       :key="cellRowIndex"
     >
       <Cell
-        :x="cellColIndex + 1"
-        :y="cellRowIndex + 1"
+        :gridArray="gridArray"
         v-for="(cellCol, cellColIndex) in cellRow"
         :key="cellColIndex"
       />
@@ -19,12 +18,18 @@
 import Cell from "@/components/Cell.vue";
 import gridGenerator from "@/utils/gridGenerator";
 // import store from "@/store";
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 
 // store updating testing
 // console.log("store.state.water: ", store.state.identities.water);
 // store.dispatch("updateIndentity", { water: { colour: "pink" } });
 // console.log("store.state.water: ", store.state.identities.water);
+
+// console.log("gridArray: ", gridGenerator(8, 8, store.getters.identitiesArray));
+
+// TESTING grid traverse algorithm ///
+// eslint-disable-next-line
+import gridTraverse from "@/utils/gridTraverse";
 
 export default {
   name: "grid",
@@ -34,12 +39,21 @@ export default {
   },
   data() {
     return {
-      gridArray: gridGenerator(this.width, this.height),
+      gridArray: gridGenerator(
+        this.width,
+        this.height,
+        this.$store.getters.identitiesArray
+      ),
     };
   },
   components: { Cell },
   computed: {
-    ...mapGetters(["water", "coast", "land", "mountain"]),
+    // ...mapGetters(["identitiesArray"]),
+  },
+  mounted() {
+    // TESTING grid traverse algorithm ///
+    gridTraverse(this.gridArray);
+    ////////////
   },
 };
 </script>

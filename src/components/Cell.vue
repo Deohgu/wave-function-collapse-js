@@ -15,20 +15,10 @@
 <script>
 import { mapGetters } from "vuex";
 
-// TESTING grid traverse algorithm ///
-// eslint-disable-next-line
-import gridTraverse from "@/utils/gridTraverse";
-import gridGenerator from "@/utils/gridGenerator";
-import store from "@/store";
-// console.log(store.getters.identitiesArray);
-gridTraverse(store.state.identities, gridGenerator(8, 8));
-////////////
-
 export default {
   name: "cell",
   props: {
-    x: Number,
-    y: Number,
+    gridArray: Array,
   },
   methods: {
     logToConsole: (toLog) => console.log(toLog),
