@@ -5,6 +5,8 @@
       v-for="(identity, identityIndex) in identitiesInCell"
       :key="identityIndex"
       :class="identity[0]"
+      :ref="`cell${identityIndex}`"
+      :style="{ 'font-size': cellWidth / 1.3 + 'px' }"
     >
       {{ identity[1].symbol }}
     </div>
@@ -17,8 +19,22 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "cell",
+  data() {
+    return {
+      cellWidth: 0,
+    };
+  },
   props: {
     identitiesInCell: Array,
+  },
+  mounted() {
+    // TODO:
+    // Make font-size dynamic -> https://stackoverflow.com/a/46899126/10431569
+    // Each individual cell has to have a varied size.
+    // Probably better to just use an svg...
+    // Fonts to SVG -> https://danmarshall.github.io/google-font-to-svg-path/
+    // console.log("this.$refs: ", this.$refs.cell0[0].offsetWidth);
+    this.cellWidth = this.$refs.cell0[0].offsetWidth;
   },
   methods: {
     logToConsole: (toLog) => console.log(toLog),
