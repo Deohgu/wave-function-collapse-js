@@ -2,13 +2,13 @@
   <div class="cell">
     <div
       class="cell__identity"
-      v-for="(identity, identityIndex) in identitiesArray"
+      v-for="(identity, identityIndex) in identitiesInCell"
       :key="identityIndex"
       :class="identity[0]"
     >
       {{ identity[1].symbol }}
     </div>
-    <!-- {{ logToConsole(identitiesArray) }} -->
+    <!-- {{ logToConsole(identitiesInCell) }} -->
   </div>
 </template>
 
@@ -18,7 +18,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "cell",
   props: {
-    gridArray: Array,
+    identitiesInCell: Array,
   },
   methods: {
     logToConsole: (toLog) => console.log(toLog),

@@ -6,7 +6,7 @@
       :key="cellRowIndex"
     >
       <Cell
-        :gridArray="gridArray"
+        :identitiesInCell="cellCol"
         v-for="(cellCol, cellColIndex) in cellRow"
         :key="cellColIndex"
       />

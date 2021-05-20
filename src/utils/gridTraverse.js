@@ -2,9 +2,13 @@
 // Define a way to traverse the grid and check based on the rules
 
 export default (arr) => {
-  // arr.forEach((curr) => {
-  //   console.log(curr);
-  // });
+  const arrClone = [...arr];
 
-  console.log("gridTraverve, arr: ", arr);
+  arrClone.forEach((arrY) => {
+    arrY.forEach((arrX) => {
+      console.log(arrX);
+    });
+  });
+
+  // console.log("gridTraverve, arr: ", arr);
 };
