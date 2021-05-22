@@ -1,27 +1,50 @@
+// CURRENT: 2 // What a mess, I cannot render these SVGs dynamically for some
+reason! // https://www.youtube.com/watch?v=FTwA-ZnQmCQ
 <template>
   <div class="cell">
-    <div
+    <!-- <div
       class="cell__identity"
       v-for="(identity, identityIndex) in identitiesInCell"
       :key="identityIndex"
       :class="identity[0]"
       :ref="`cell${identityIndex}`"
       :style="{ 'font-size': cellWidth / 1.3 + 'px' }"
-    >
-      {{ identity[1].symbol }}
-    </div>
-    <!-- {{ logToConsole(identitiesInCell) }} -->
+    > -->
+    <!-- <img :src="identity[1].svg" :alt="identity[0]" /> -->
+    <!-- {{ DOMParser.parseFromString(identity[1].svg, "image/svg+xml") }} -->
+    <!-- {{ identity[1].svg }} -->
+    <!-- {{ waterSvg }} -->
+    <!-- <img src="`../assets/water.svg`" alt="whatever" /> -->
+    <img
+      v-for="(identity, identityIndex) in identitiesInCell"
+      :key="identityIndex"
+      :src="identity[0]"
+      :alt="'whatever'"
+    />
+    <!-- <img :src="water" :alt="'whatever'" /> -->
+    <!-- {{ identity[1].symbol }} -->
+    <!-- {{ logToConsole(identity[0]) }} -->
+    <!-- </div> -->
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 
+import waterSvg from "../assets/water.svg";
+import coastSvg from "../assets/coast.svg";
+import landSvg from "../assets/land.svg";
+import mountainSvg from "../assets/mountain.svg";
+
 export default {
   name: "cell",
   data() {
     return {
       cellWidth: 0,
+      water: waterSvg,
+      coast: coastSvg,
+      land: landSvg,
+      mountain: mountainSvg,
     };
   },
   props: {
