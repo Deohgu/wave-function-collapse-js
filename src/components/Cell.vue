@@ -15,15 +15,21 @@ reason! // https://www.youtube.com/watch?v=FTwA-ZnQmCQ
     <!-- {{ identity[1].svg }} -->
     <!-- {{ waterSvg }} -->
     <!-- <img src="`../assets/water.svg`" alt="whatever" /> -->
-    <img
+    <SVGcell
+      v-for="(identity, identityIndex) in identitiesInCell"
+      :key="identityIndex"
+      :identity="identity[0]"
+    >
+      {{ logToConsole(`identity[0]: ${identity[0]}`) }}
+    </SVGcell>
+    <!-- <img
       v-for="(identity, identityIndex) in identitiesInCell"
       :key="identityIndex"
       :src="identity[0]"
       :alt="'whatever'"
-    />
+    /> -->
     <!-- <img :src="water" :alt="'whatever'" /> -->
     <!-- {{ identity[1].symbol }} -->
-    <!-- {{ logToConsole(identity[0]) }} -->
     <!-- </div> -->
   </div>
 </template>
@@ -31,20 +37,14 @@ reason! // https://www.youtube.com/watch?v=FTwA-ZnQmCQ
 <script>
 import { mapGetters } from "vuex";
 
-import waterSvg from "../assets/water.svg";
-import coastSvg from "../assets/coast.svg";
-import landSvg from "../assets/land.svg";
-import mountainSvg from "../assets/mountain.svg";
+import SVGcell from "./svgCell";
 
 export default {
   name: "cell",
+  components: { SVGcell },
   data() {
     return {
       cellWidth: 0,
-      water: waterSvg,
-      coast: coastSvg,
-      land: landSvg,
-      mountain: mountainSvg,
     };
   },
   props: {

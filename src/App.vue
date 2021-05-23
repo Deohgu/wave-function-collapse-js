@@ -26,6 +26,6 @@ export default {
   align-items: center;
   height: 100vh;
 
-  background-color: black;
+  background-color: rgb(182, 182, 182);
 }
 </style>
