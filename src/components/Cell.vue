@@ -57,7 +57,7 @@ export default {
     // Probably better to just use an svg...
     // Fonts to SVG -> https://danmarshall.github.io/google-font-to-svg-path/
     // console.log("this.$refs: ", this.$refs.cell0[0].offsetWidth);
-    this.cellWidth = this.$refs.cell0[0].offsetWidth;
+    // this.cellWidth = this.$refs.cell0[0].offsetWidth;
   },
   methods: {
     logToConsole: (toLog) => console.log(toLog),
@@ -88,19 +88,19 @@ export default {
   }
 
   .water {
-    color: hsl(218.02, 51.78%, 50.39%);
+    fill: hsl(218.02, 51.78%, 50.39%);
   }
 
   .coast {
-    color: hsl(41.2, 80.5%, 75.9%);
+    fill: hsl(41.2, 80.5%, 75.9%);
   }
 
   .land {
-    color: rgb(21, 160, 0);
+    fill: rgb(21, 160, 0);
   }
 
   .mountain {
-    color: hsl(0, 0%, 46.3%);
+    fill: hsl(0, 0%, 46.3%);
   }
 }
 </style>
