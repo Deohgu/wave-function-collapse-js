@@ -5,7 +5,7 @@
       :key="identityIndex"
       :identity="identity[0]"
     >
-      {{ logToConsole(`identity[0]: ${identity[0]}`) }}
+      <!-- {{ logToConsole(`identity[0]: ${identity[0]}`) }} -->
     </SVGcell>
   </div>
 </template>
