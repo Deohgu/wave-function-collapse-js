@@ -1,5 +1,5 @@
 <template>
-  <div class="cell">
+  <div class="cell" :class="{ 'cell--flex': identitiesInCell.length === 1 }">
     <SVGcell
       v-for="(identity, identityIndex) in identitiesInCell"
       :key="identityIndex"
@@ -37,8 +37,7 @@ export default {
   width: 100px;
   height: 100px;
 
-  &__identity {
-    font-size: 35px;
+  &--flex {
     display: flex;
     justify-content: center;
     align-items: center;

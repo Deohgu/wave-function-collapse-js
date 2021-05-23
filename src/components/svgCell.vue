@@ -71,6 +71,11 @@ export default {
 </script>
 
 <style>
+.cellContainer {
+  width: 100%;
+  height: 100%;
+}
+
 .cellSVG {
   display: flex;
   width: 100%;
