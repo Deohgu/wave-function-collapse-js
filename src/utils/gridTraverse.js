@@ -2,11 +2,13 @@
 // Define a way to traverse the grid and check based on the rules
 
 /////////////
-//  Fill array with arrays matching the number of identities in each group
-//    [[{index: 2, amount: 4}, {index: 4, amount: 4}],[{index: 3, amount: 3}],[],[]]
-//  Last array in the list containing at least one object is the least entropy one
-//  Pick one at random from the last array that contains objects and splice everything else out
-//
+//  Calls gridTraverse to check neighbours
+//  Copy original array
+//  if any identity is invalid
+//  split out invalid identities and add that block to neighboorArray
+//  sort neighboorArray from lowest to heightest
+//  randomize order of equal numbers
+//  forEach of that neighboorArray call gridTraverse
 /////////////
 
 export default (arr) => {
