@@ -52,7 +52,7 @@ export default {
   },
   mounted() {
     // TESTING grid traverse algorithm ///
-    gridTraverse(this.gridArray);
+    gridTraverse(this.gridArray, this.gridArray[0][0][0][0]);
     ////////////
   },
 };
