@@ -1,5 +1,9 @@
 <template>
-  <div class="cell" :class="{ 'cell--flex': identitiesInCell.length === 1 }">
+  <div
+    class="cell"
+    :class="{ 'cell--flex': identitiesInCell.length === 1 }"
+    @click="traverse(gridArray, 0, 0)"
+  >
     <SVGcell
       v-for="(identity, identityIndex) in identitiesInCell"
       :key="identityIndex"
@@ -11,16 +15,29 @@
 </template>
 
 <script>
+//  TODO:
+//  Clean up the passing of data
+//  gridArray should be acessed from the store, along with x, y?
+
 import SVGcell from "./svgCell";
+
+// TESTING grid traverse algorithm ///
+// eslint-disable-next-line
+import gridTraverse from "@/utils/gridTraverse";
 
 export default {
   name: "cell",
   components: { SVGcell },
   props: {
     identitiesInCell: Array,
+    gridArray: Array,
   },
   methods: {
     logToConsole: (toLog) => console.log(toLog),
+    // TESTING grid traverse algorithm ///
+    traverse(array, x, y) {
+      return gridTraverse(array, x, y);
+    },
   },
 };
 </script>
