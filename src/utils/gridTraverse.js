@@ -35,29 +35,23 @@ export default (array, x, y) => {
   //  Directions for each position in each if section
   // eslint-disable-next-line no-unused-vars
   const conditionalDirections = {
-    topWall: [
-      allDirections.right(),
-      allDirections.down(),
-      allDirections.left(),
-    ],
-    rightWall: [allDirections.up(), allDirections.down(), allDirections.left()],
-    topRightCorner: [allDirections.down(), allDirections.left()],
-    bottomCorner: [allDirections.up(), allDirections.left()],
-    bottomWall: [
-      allDirections.up(),
-      allDirections.right(),
-      allDirections.left(),
-    ],
-    leftBottomCorner: [allDirections.up(), allDirections.right()],
-    leftWall: [allDirections.up(), allDirections.right(), allDirections.down()],
-    topLeftCorner: [allDirections.right(), allDirections.down()],
+    topWall: [allDirections.right(), allDirections.down, allDirections.left],
+    rightWall: [allDirections.up, allDirections.down, allDirections.left],
+    topRightCorner: [allDirections.down, allDirections.left],
+    bottomCorner: [allDirections.up, allDirections.left],
+    bottomWall: [allDirections.up, allDirections.right, allDirections.left],
+    leftBottomCorner: [allDirections.up, allDirections.right],
+    leftWall: [allDirections.up, allDirections.right, allDirections.down],
+    topLeftCorner: [allDirections.right, allDirections.down],
     noWall: [
-      allDirections.up(),
-      allDirections.right(),
-      allDirections.down(),
-      allDirections.left(),
+      allDirections.up,
+      allDirections.right,
+      allDirections.down,
+      allDirections.left,
     ],
   };
+
+  console.log("TESTING: ", conditionalDirections.topWall[0]);
 
   //  Starts collapsing
   if (y === 0) {
