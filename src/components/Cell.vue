@@ -30,7 +30,11 @@ export default {
   components: { SVGcell },
   props: {
     identitiesInCell: Array,
-    gridArray: Array,
+  },
+  data() {
+    return {
+      gridArray: this.$store.state.grid.grid,
+    };
   },
   methods: {
     logToConsole: (toLog) => console.log(toLog),
