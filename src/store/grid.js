@@ -1,5 +1,6 @@
 import gridGenerator from "@/utils/gridGenerator";
-import store from "./index";
+// import store from "./index";
+import identities from "./identities";
 
 //  TODO:
 //  CURRENT:
@@ -11,6 +12,6 @@ export default {
     width: 4,
     height: 4,
     // grid: gridGenerator(this.width, this.height, store.getters.identitiesArray),
-    grid: gridGenerator(4, 4, store.modules.identities.getters.identitiesArray),
+    grid: gridGenerator(4, 4, Object.entries(identities.state())),
   }),
 };

@@ -34,7 +34,7 @@ export default {
   },
   data() {
     return {
-      gridArray: this.$store.state.grid,
+      gridArray: this.$store.state.grid.grid,
     };
   },
   components: { Cell },
