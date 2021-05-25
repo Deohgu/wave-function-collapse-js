@@ -2,14 +2,13 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import identities from "./identities";
+import grid from "./grid";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
   modules: {
     identities,
+    grid,
   },
 });
