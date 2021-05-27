@@ -11,8 +11,9 @@
 //  ForEach of that neighboorArray call gridTraverse
 /////////////
 
-export default (array, x, y) => {
-  // const arrClone = [...array];
+export const gridTraverse = (array, x, y) => {
+  // eslint-disable-next-line no-unused-vars
+  const arrayClone = [...array];
 
   // If not against a wall
   // x and y are equal to the index in the loops which determines the current cell
@@ -51,6 +52,8 @@ export default (array, x, y) => {
     ],
   };
 
+  // const neighboursCue = []
+
   //  Starts collapsing
   if (y === 0) {
     //  TOP RIGHT CORNER
@@ -59,6 +62,15 @@ export default (array, x, y) => {
       //  TOP LEFT CORNER
     } else if (x === 0) {
       console.log("TOP LEFT CORNER");
+      // eslint-disable-next-line no-unused-vars
+      conditionalDirections.topLeftCorner.forEach((direction) => {
+        //  Runs through all potential directions
+        //  Loops through each direction identity
+        //    Compares arrayClone[y][x] with each identity
+        //    If identity can not be in that direction split from arrayClone
+        //    If at least one identity was split, add to the back line of neighboursCue the current location of the block
+        //  Loop through neighboursCue and call gridTraverse(arrayClone, )
+      });
       //  TOP WALL
     } else {
       console.log("TOP WALL");
