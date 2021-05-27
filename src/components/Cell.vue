@@ -23,7 +23,7 @@ import SVGcell from "./svgCell";
 
 // TESTING grid traverse algorithm ///
 // eslint-disable-next-line
-import gridTraverse from "@/utils/gridTraverse";
+import { gridTraverse } from "@/utils/gridTraverse";
 
 export default {
   name: "cell",
