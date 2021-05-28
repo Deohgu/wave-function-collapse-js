@@ -36,20 +36,15 @@ export const gridTraverse = (array, y, x) => {
   //  Directions for each position in each if section
   // eslint-disable-next-line no-unused-vars
   const conditionalDirections = {
-    northWall: [allDirections.east, allDirections.south, allDirections.west],
-    northEastCorner: [allDirections.south, allDirections.west],
-    eastWall: [allDirections.north, allDirections.south, allDirections.west],
-    southEastCorner: [allDirections.north, allDirections.west],
-    southWall: [allDirections.north, allDirections.east, allDirections.west],
-    southWestCorner: [allDirections.north, allDirections.east],
-    westWall: [allDirections.north, allDirections.east, allDirections.south],
-    northWestCorner: [allDirections.east, allDirections.south],
-    noWall: [
-      allDirections.north,
-      allDirections.east,
-      allDirections.south,
-      allDirections.west,
-    ],
+    northWall: ["east", "south", "west"],
+    northEastCorner: ["south", "west"],
+    eastWall: ["north", "south", "west"],
+    southEastCorner: ["north", "west"],
+    southWall: ["north", "east", "west"],
+    southWestCorner: ["north", "east"],
+    westWall: ["north", "east", "south"],
+    northWestCorner: ["east", "south"],
+    noWall: ["north", "east", "south", "west"],
   };
 
   // const neighboursCue = []
@@ -64,28 +59,30 @@ export const gridTraverse = (array, y, x) => {
       console.log("North West CORNER");
       // eslint-disable-next-line no-unused-vars
       conditionalDirections.northWestCorner.forEach((direction) => {
+        console.log("DIRECTION INIT: ", direction);
         //  Runs through all potential directions
         // eslint-disable-next-line no-unused-vars
-        direction().forEach((identity) => {
-          //  Can I use the
-          console.log(
-            "arrayClone[y][x][0][1].rules: ",
-            arrayClone[y][x][0][1].rules
-          );
-
-          console.log("direction, identity: ", direction(), identity);
+        allDirections[direction]().forEach((identity) => {
           //  Loops through each direction identity
           //    Compares arrayClone[y][x][0] with each identity
 
-          //  FIXME:
-          //  ERROR HERE
-          //    If rules array of current identity to that direction has identity being analised then do something
-          //      Meaning, ogIdentities(matching this one).rules.(direction we are looking).hasIndexOf(identity)
-          if (identity.indexOf(arrayClone[y][x][0])) {
-            console.log(
-              "TESTING indexOf: ",
-              identity.indexOf(arrayClone[y][x][0])
-            );
+          //  If the current neighbour identity is not in the rules of the current checker identity of the current direction remove it from the current block
+          if (
+            arrayClone[y][x][0][1].rules[direction].indexOf(identity[0]) === -1
+          ) {
+            //  Remove identity not belonging to be adjacent in the current direction to the original identity
+            /////////////////////////////////////////
+            // console.log(
+            //   "index: ",
+            //   arrayClone[y][x][0][1].rules[direction].indexOf(identity[0])
+            // );
+            // console.log(
+            //   "arrayClone[y][x][0][1].rules[direction]: ",
+            //   arrayClone[y][x][0][1].rules[direction]
+            // );
+            // console.log("identity[0]: ", identity[0]);
+            // console.log("----------------------------------------");
+            /////////////////////////////////////////
           }
           //    If identity can not be in that direction split from arrayClone
           //    If at least one identity was split, add to the back line of neighboursCue the current location of the block
