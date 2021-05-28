@@ -57,35 +57,18 @@ export const gridTraverse = (array, y, x) => {
       //  North West CORNER
     } else if (x === 0) {
       console.log("North West CORNER");
-      // eslint-disable-next-line no-unused-vars
+      //  Loops valid directions for this particular location and returns then as a string
       conditionalDirections.northWestCorner.forEach((direction) => {
-        console.log("DIRECTION INIT: ", direction);
-        //  Runs through all potential directions
-        // eslint-disable-next-line no-unused-vars
+        //  From the valid directions get the cells in that direction of original cell
         allDirections[direction]().forEach((identity) => {
-          //  Loops through each direction identity
-          //    Compares arrayClone[y][x][0] with each identity
-
-          //  If the current neighbour identity is not in the rules of the current checker identity of the current direction remove it from the current block
+          //  If the current identity in the current cell is not in the rules array of the original cell identity of the current direction, remove it from the current identity from the cell
           if (
             arrayClone[y][x][0][1].rules[direction].indexOf(identity[0]) === -1
           ) {
-            //  Remove identity not belonging to be adjacent in the current direction to the original identity
-            /////////////////////////////////////////
-            // console.log(
-            //   "index: ",
-            //   arrayClone[y][x][0][1].rules[direction].indexOf(identity[0])
-            // );
-            // console.log(
-            //   "arrayClone[y][x][0][1].rules[direction]: ",
-            //   arrayClone[y][x][0][1].rules[direction]
-            // );
-            // console.log("identity[0]: ", identity[0]);
-            // console.log("----------------------------------------");
-            /////////////////////////////////////////
+            //  TODO:
+            //  If identity can not be in that direction split from arrayClone
+            //  If at least one identity was split, add to the back line of neighboursCue the current location of the cell
           }
-          //    If identity can not be in that direction split from arrayClone
-          //    If at least one identity was split, add to the back line of neighboursCue the current location of the block
         });
         //  Loop through neighboursCue and call gridTraverse(arrayClone, )
       });
