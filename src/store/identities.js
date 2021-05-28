@@ -4,20 +4,46 @@ export default {
     water: {
       colour: "blue",
       rulesDescription: "Water can only be near Coast or itself",
+      rules: {
+        north: ["water", "coast"],
+        east: ["water", "coast"],
+        south: ["water", "coast"],
+        west: ["water", "coast"],
+      },
       symbol: "≈",
     },
     coast: {
       colour: "light brown",
       rulesDescription: "Coast must have Land on one side and Sea on the other",
+      rules: {
+        //  Will need to be refactored to a Standardised way
+        north: ["water && south: land", "land && south: water"],
+        east: ["water && west: land", "land && west: water"],
+        south: ["water && north: land", "land && north: water"],
+        west: ["water && east: land", "land && east: water"],
+      },
       symbol: "◢",
     },
     land: {
       colour: "green",
       symbol: "↟",
+      rulesDescription: "Land can be next to itselt, mountains or coast",
+      rules: {
+        north: ["coast", "land", "mountain"],
+        east: ["coast", "land", "mountain"],
+        south: ["coast", "land", "mountain"],
+        west: ["coast", "land", "mountain"],
+      },
     },
     mountain: {
       colour: "dark grey",
       rulesDescription: "Mountain can only be near Land or itself",
+      rules: {
+        north: ["land", "mountain"],
+        east: ["land", "mountain"],
+        south: ["land", "mountain"],
+        west: ["land", "mountain"],
+      },
       symbol: "◮",
     },
   }),
