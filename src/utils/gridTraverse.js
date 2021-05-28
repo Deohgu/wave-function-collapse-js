@@ -56,12 +56,12 @@ export const gridTraverse = (array, y, x) => {
 
   //  Starts collapsing
   if (y === 0) {
-    //  TOP east CORNER
+    //  North East CORNER
     if (x === array[0].length - 1) {
-      console.log("TOP east CORNER");
-      //  TOP west CORNER
+      console.log("North East CORNER");
+      //  North West CORNER
     } else if (x === 0) {
-      console.log("TOP west CORNER");
+      console.log("North West CORNER");
       // eslint-disable-next-line no-unused-vars
       conditionalDirections.northWestCorner.forEach((direction) => {
         //  Runs through all potential directions
@@ -92,27 +92,27 @@ export const gridTraverse = (array, y, x) => {
         });
         //  Loop through neighboursCue and call gridTraverse(arrayClone, )
       });
-      //  TOP WALL
+      //  North WALL
     } else {
-      console.log("TOP WALL");
+      console.log("North WALL");
     }
   } else if (y === array.length - 1) {
-    //  south east CORNER
+    //  South West CORNER
     if (x === array[0].length - 1) {
-      console.log("south west CORNER");
-      // south west CORNER
+      console.log("South West CORNER");
+      // South East CORNER
     } else if (x === 0) {
-      console.log("south east CORNER");
-      //  south WALL
+      console.log("South East CORNER");
+      //  South WALL
     } else {
-      console.log("south WALL");
+      console.log("South WALL");
     }
-    //  east WALL ONLY
+    //  East WALL ONLY
   } else if (x === array[0].length - 1) {
-    console.log("east WALL");
-    //  west WALL ONLY
+    console.log("East WALL");
+    //  West WALL ONLY
   } else if (x === 0) {
-    console.log("west WALL");
+    console.log("West WALL");
     // AWAY FROM WALL
   } else {
     console.log("AWAY FROM WALL");
