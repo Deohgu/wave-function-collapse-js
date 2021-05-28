@@ -65,10 +65,13 @@ export const gridTraverse = (array, x, y) => {
       // eslint-disable-next-line no-unused-vars
       conditionalDirections.topLeftCorner.forEach((direction) => {
         //  Runs through all potential directions
-        //  Loops through each direction identity
-        //    Compares arrayClone[y][x] with each identity
-        //    If identity can not be in that direction split from arrayClone
-        //    If at least one identity was split, add to the back line of neighboursCue the current location of the block
+        // eslint-disable-next-line no-unused-vars
+        direction.forEach((identity) => {
+          //  Loops through each direction identity
+          //    Compares arrayClone[y][x][0] with each identity
+          //    If identity can not be in that direction split from arrayClone
+          //    If at least one identity was split, add to the back line of neighboursCue the current location of the block
+        });
         //  Loop through neighboursCue and call gridTraverse(arrayClone, )
       });
       //  TOP WALL
