@@ -10,31 +10,51 @@
 //  Randomize order of equal numbers
 //  ForEach of that neighboorArray call gridTraverse
 /////////////
+import store from "@/store";
 
 export const gridTraverse = (array, y, x) => {
-  // eslint-disable-next-line no-unused-vars
   const arrayClone = [...array];
 
-  // If not against a wall
-  // x and y are equal to the index in the loops which determines the current cell
-  // eslint-disable-next-line no-unused-vars
+  //  If not against a wall
+  //  x and y are equal to the index in the loops which determines the current cell
+  //    e.g: array[allDirections[east].y()][allDirections[east].x()]
+  //    Allows usage with multiple arrays
   const allDirections = {
-    north() {
-      return array[y - 1][x];
+    north: {
+      y() {
+        return y - 1;
+      },
+      x() {
+        return x;
+      },
     },
-    east() {
-      return array[y][x + 1];
+    east: {
+      y() {
+        return y;
+      },
+      x() {
+        return x + 1;
+      },
     },
-    south() {
-      return array[y + 1][x];
+    south: {
+      y() {
+        return y + 1;
+      },
+      x() {
+        return x;
+      },
     },
-    west() {
-      return array[y][x - 1];
+    west: {
+      y() {
+        return y;
+      },
+      x() {
+        return x - 1;
+      },
     },
   };
 
   //  Directions for each position in each if section
-  // eslint-disable-next-line no-unused-vars
   const conditionalDirections = {
     northWall: ["east", "south", "west"],
     northEastCorner: ["south", "west"],
@@ -60,13 +80,29 @@ export const gridTraverse = (array, y, x) => {
       //  Loops valid directions for this particular location and returns then as a string
       conditionalDirections.northWestCorner.forEach((direction) => {
         //  From the valid directions get the cells in that direction of original cell
-        allDirections[direction]().forEach((identity) => {
+        console.log(
+          "TESTING: ",
+          arrayClone[allDirections[direction].y()][allDirections[direction].x()]
+        );
+        arrayClone[allDirections[direction].y()][
+          allDirections[direction].x()
+        ].forEach((identity, index) => {
           //  If the current identity in the current cell is not in the rules array of the original cell identity of the current direction, remove it from the current identity from the cell
           if (
             arrayClone[y][x][0][1].rules[direction].indexOf(identity[0]) === -1
           ) {
+            console.log(index);
+            // console.log(store.state.grid.grid[y][x][0]);
             //  TODO:
-            //  If identity can not be in that direction split from arrayClone
+            //  If identity can not be in that direction split from original array
+
+            //  FIXME:
+            //  Split based on current direction, somehow reuse the returned value from allDirections
+            console.log(
+              "store: ",
+              store.state.grid.grid[y][x].splice(index, 1)
+            );
+            // store.state.grid[][]
             //  If at least one identity was split, add to the back line of neighboursCue the current location of the cell
           }
         });
