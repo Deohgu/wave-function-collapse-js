@@ -11,9 +11,6 @@ export default (width, height, identities) => {
     }
   }
 
-  // Manually picks an entity for testing
-  generatedArr[0][0].splice(1);
-
   // console.log("generatedArr: ", generatedArr);
   return generatedArr;
 };

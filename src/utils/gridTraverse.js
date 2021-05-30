@@ -18,7 +18,20 @@
 //    Not sure a loop is needed, recursevely traverses the grid anyway
 /////////////
 export const gridTraverse = (array, y, x) => {
-  //  Select an identity at random of the ones still available / splice off the others
+  //  FIXME:
+  //  Not working fully here
+  if (array[y][x].length > 1) {
+    //  Select an identity at random of the ones still available / splice off the others
+    //  Picks a random valid index
+    const randomIdentityIndex = Math.floor(
+      Math.random() * (array[y][1].length - 1 - 0) + 0
+    );
+
+    //  Only return selected identity
+    console.log("array before: ", array);
+    array = array[y][x].slice(randomIdentityIndex, randomIdentityIndex);
+    console.log("array after: ", array);
+  }
 
   const arrayClone = JSON.parse(JSON.stringify(array));
 
