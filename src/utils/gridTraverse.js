@@ -67,8 +67,9 @@ export const gridTraverse = (array, y, x) => {
 
   //  Blocks that had identities split from it
   //    Each block will have an indentity picked at random, split the others off and from the remaining one and call gridTraverse
-  //  Structure of values to be defined
-  // const neighboursCue = []
+  //  Structure -> [{y:0, x:0, amount: 2}, {y:0, x: 1, amount: 1}, ...]
+  const neighboursCue = [];
+  //  at the end do one pass with array.sort(), it checks each index and compares the index.amount to sort
 
   //  Starts collapsing
   //  North Wall Section
@@ -96,9 +97,20 @@ export const gridTraverse = (array, y, x) => {
             array[allDirections[direction].y()][
               allDirections[direction].x()
             ].splice(array.indexOf(identity[0]), 1);
-            //  If at least one identity was split, add to the back line of neighboursCue to call the current location of the cell
           }
         });
+        //  If at least one identity was split, add to the back line of neighboursCue to call the current location of the cell
+        if (
+          array[allDirections[direction].y()][allDirections[direction].x()]
+            .length < 4 //  Hard coded amount of identities
+        )
+          neighboursCue.push({
+            y: allDirections[direction].y(),
+            x: allDirections[direction].x(),
+            amount:
+              array[allDirections[direction].y()][allDirections[direction].x()]
+                .length,
+          });
         //  Loop through neighboursCue and call gridTraverse(arrayClone, )
       });
       //  North WALL
@@ -127,4 +139,6 @@ export const gridTraverse = (array, y, x) => {
   } else {
     console.log("AWAY FROM WALL");
   }
+
+  console.log("neighboursCue after loop: ", neighboursCue);
 };
