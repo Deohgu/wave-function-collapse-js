@@ -1,5 +1,11 @@
 // CURRENT:
+//  TODO:
 // Define a way to traverse the grid and check based on the rules
+
+//  TODO:
+//  Split the function into smaller functions
+//    read up on functional programming and refactoring
+//    In essence all the complex code will be abstracted with self explanatory named functions
 
 /////////////
 //  Calls gridTraverse to check neighbours
@@ -9,8 +15,11 @@
 //  Sort neighboorArray from lowest to heightest
 //  Randomize order of equal numbers
 //  ForEach of that neighboorArray call gridTraverse
+//    Not sure a loop is needed, recursevely traverses the grid anyway
 /////////////
 export const gridTraverse = (array, y, x) => {
+  //  Select an identity at random of the ones still available / splice off the others
+
   const arrayClone = JSON.parse(JSON.stringify(array));
 
   //  If not against a wall
@@ -71,6 +80,9 @@ export const gridTraverse = (array, y, x) => {
   let neighboursCue = [];
   //  at the end do one pass with array.sort(), it checks each index and compares the index.amount to sort
 
+  //  FIXME:
+  //  SKIP cells with one identity!
+
   //  Starts collapsing
   //  North Wall Section
   if (y === 0) {
@@ -111,7 +123,6 @@ export const gridTraverse = (array, y, x) => {
               array[allDirections[direction].y()][allDirections[direction].x()]
                 .length,
           });
-        //  Loop through neighboursCue and call gridTraverse(arrayClone, )
       });
       //  North WALL
     } else {
@@ -148,5 +159,15 @@ export const gridTraverse = (array, y, x) => {
     return a.amount - b.amount;
   });
 
-  console.log("neighboursCue: ", neighboursCue);
+  //  TODO:
+  //  Call gridTraverse for the newly selected block if grid hasn't yet fully collapsed
+  //  Should it traverse neighboursCue instead and call all?
+  //    Recursevely that might create issues. If one cell is already empty when going back to previous cells in neighboursCue array
+  if ("grid has not fully collpase" !== String) {
+    // eslint-disable-next-line no-unused-vars
+    //  Lowest entropy cell x and y
+    const y = neighboursCue[0].y;
+    const x = neighboursCue[0].x;
+    gridTraverse(array, y, x);
+  }
 };
