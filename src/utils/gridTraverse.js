@@ -142,7 +142,11 @@ export const gridTraverse = (array, y, x) => {
 
   //  Sorts blocks in neighboursCue by ascending amount of identities, i.e lower entropy
   neighboursCue = neighboursCue.sort((a, b) => {
+    if (a.amount === b.amount) {
+      return Math.floor(Math.random() * (1 - -1) + -1); // If equal randomize order
+    }
     return a.amount - b.amount;
   });
-  console.log("neighboursCue after loop and sort: ", neighboursCue);
+
+  console.log("neighboursCue: ", neighboursCue);
 };
