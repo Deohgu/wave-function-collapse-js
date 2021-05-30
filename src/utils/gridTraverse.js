@@ -68,7 +68,7 @@ export const gridTraverse = (array, y, x) => {
   //  Blocks that had identities split from it
   //    Each block will have an indentity picked at random, split the others off and from the remaining one and call gridTraverse
   //  Structure -> [{y:0, x:0, amount: 2}, {y:0, x: 1, amount: 1}, ...]
-  const neighboursCue = [];
+  let neighboursCue = [];
   //  at the end do one pass with array.sort(), it checks each index and compares the index.amount to sort
 
   //  Starts collapsing
@@ -140,5 +140,9 @@ export const gridTraverse = (array, y, x) => {
     console.log("AWAY FROM WALL");
   }
 
-  console.log("neighboursCue after loop: ", neighboursCue);
+  //  Sorts blocks in neighboursCue by ascending amount of identities, i.e lower entropy
+  neighboursCue = neighboursCue.sort((a, b) => {
+    return a.amount - b.amount;
+  });
+  console.log("neighboursCue after loop and sort: ", neighboursCue);
 };
