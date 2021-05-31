@@ -17,6 +17,20 @@
 //  ForEach of that neighboorArray call gridTraverse
 //    Not sure a loop is needed, recursevely traverses the grid anyway
 /////////////
+
+//  allDirections:
+//    If not against a wall
+//    x and y are equal to the index in the loops which determines the current cell
+//      e.g: array[allDirections[east].y()][allDirections[east].x()]
+//      Allows usage with multiple arrays
+
+//  conditionalDirections:
+//    Directions for each position in each if section
+import {
+  allDirections,
+  conditionalDirections,
+} from "@/utils/traverse/directions";
+
 export const gridTraverse = (array, y, x) => {
   let arrayClone = JSON.parse(JSON.stringify(array));
 
@@ -33,58 +47,6 @@ export const gridTraverse = (array, y, x) => {
       randomIdentityIndex + 1
     );
   }
-
-  //  If not against a wall
-  //  x and y are equal to the index in the loops which determines the current cell
-  //    e.g: array[allDirections[east].y()][allDirections[east].x()]
-  //    Allows usage with multiple arrays
-  const allDirections = {
-    north: {
-      y() {
-        return y - 1;
-      },
-      x() {
-        return x;
-      },
-    },
-    east: {
-      y() {
-        return y;
-      },
-      x() {
-        return x + 1;
-      },
-    },
-    south: {
-      y() {
-        return y + 1;
-      },
-      x() {
-        return x;
-      },
-    },
-    west: {
-      y() {
-        return y;
-      },
-      x() {
-        return x - 1;
-      },
-    },
-  };
-
-  //  Directions for each position in each if section
-  const conditionalDirections = {
-    northWall: ["east", "south", "west"],
-    northEastCorner: ["south", "west"],
-    eastWall: ["north", "south", "west"],
-    southEastCorner: ["north", "west"],
-    southWall: ["north", "east", "west"],
-    southWestCorner: ["north", "east"],
-    westWall: ["north", "east", "south"],
-    northWestCorner: ["east", "south"],
-    noWall: ["north", "east", "south", "west"],
-  };
 
   //  Blocks that had identities split from it
   //    Each cell will have an indentity picked at random, split the others off and from the remaining one and call gridTraverse
@@ -106,8 +68,8 @@ export const gridTraverse = (array, y, x) => {
       console.log("North West CORNER");
       //  Loops valid directions for this particular location and returns then as a string
       conditionalDirections.northWestCorner.forEach((direction) => {
-        const thisY = [allDirections[direction].y()];
-        const thisX = [allDirections[direction].x()];
+        const thisY = [allDirections(y, x)[direction].y()];
+        const thisX = [allDirections(y, x)[direction].x()];
         //  From the valid directions get the cell in that direction of original cell
         array[thisY][thisX].forEach((identity) => {
           //  If this identity, in this cell, is not in the rules of the original cell of its allowed neighbours of that direction remove it
@@ -132,8 +94,8 @@ export const gridTraverse = (array, y, x) => {
           arrayClone[thisY][thisX].length < 4 //  Hard coded amount of identities
         )
           neighboursCue.push({
-            y: allDirections[direction].y(),
-            x: allDirections[direction].x(),
+            y: allDirections(y, x)[direction].y(),
+            x: allDirections(y, x)[direction].x(),
             amount: arrayClone[thisY][thisX].length,
           });
       });
