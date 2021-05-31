@@ -31,13 +31,11 @@ export default {
     width: Number,
     height: Number,
   },
-  data() {
-    return {
-      gridArray: this.$store.state.grid.grid,
-    };
-  },
   components: { Cell },
   computed: {
+    gridArray() {
+      return this.$store.state.grid.grid;
+    },
     // ...mapGetters(["identitiesArray"]),
   },
 };
