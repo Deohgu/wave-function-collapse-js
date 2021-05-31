@@ -40,7 +40,8 @@ export default {
     logToConsole: (toLog) => console.log(toLog),
     // TESTING grid traverse algorithm ///
     traverse(array, x, y) {
-      return gridTraverse(array, x, y);
+      const collapsed = gridTraverse(array, x, y);
+      this.$store.state.grid.grid = collapsed;
     },
   },
 };
