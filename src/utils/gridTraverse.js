@@ -31,28 +31,27 @@ import {
   conditionalDirections,
 } from "@/utils/traverse/directions";
 
+import filterIdentities from "@/utils/traverse/filterIdentities";
+
 export const gridTraverse = (array, y, x) => {
   let arrayClone = JSON.parse(JSON.stringify(array));
 
+  //  Blocks that had identities split from it -> [{y:0, x:0, amount: 2}, ...]
+  //    Each cell will have an indentity picked at random, split the others off and from the remaining one and call gridTraverse
+  //  at the end do one pass with array.sort(), it checks each index and compares the index.amount to sort
+  let neighboursCue = [];
+
+  //  Of the ones still available select an identity at random and remove the others
   if (array[y][x].length > 1) {
-    //  Select an identity at random of the ones still available / splice off the others
-    //  Picks a random valid index
     const randomIdentityIndex = Math.floor(
       Math.random() * (array[y][1].length - 0) + 0
     );
 
-    //  Only return selected identity
     arrayClone[y][x] = arrayClone[y][x].slice(
       randomIdentityIndex,
       randomIdentityIndex + 1
     );
   }
-
-  //  Blocks that had identities split from it
-  //    Each cell will have an indentity picked at random, split the others off and from the remaining one and call gridTraverse
-  //  Structure -> [{y:0, x:0, amount: 2}, {y:0, x: 1, amount: 1}, ...]
-  let neighboursCue = [];
-  //  at the end do one pass with array.sort(), it checks each index and compares the index.amount to sort
 
   //  FIXME:
   //  SKIP cells with one identity!
@@ -70,23 +69,16 @@ export const gridTraverse = (array, y, x) => {
       conditionalDirections.northWestCorner.forEach((direction) => {
         const thisY = [allDirections(y, x)[direction].y()];
         const thisX = [allDirections(y, x)[direction].x()];
-        //  From the valid directions get the cell in that direction of original cell
-        array[thisY][thisX].forEach((identity) => {
-          //  If this identity, in this cell, is not in the rules of the original cell of its allowed neighbours of that direction remove it
-          if (
-            arrayClone[y][x][0][1].rules[direction].indexOf(identity[0]) === -1
-          ) {
-            //  If current identity can not be in that direction splice from cloned array
-            arrayClone[thisY][thisX].splice(
-              arrayClone[thisY][thisX].findIndex((eachId) => {
-                if (eachId[0] === identity[0]) {
-                  return true;
-                }
-              }),
-              1
-            );
-          }
-        });
+
+        arrayClone = filterIdentities(
+          direction,
+          arrayClone,
+          y,
+          x,
+          thisY,
+          thisX
+        );
+
         //  TODO:
         //  Somehow soft-code amount of identities
         //  If at least one identity was split, add to the back line of neighboursCue to call the current location of the cell
