@@ -87,7 +87,7 @@ export const gridTraverse = (array, y, x) => {
   };
 
   //  Blocks that had identities split from it
-  //    Each block will have an indentity picked at random, split the others off and from the remaining one and call gridTraverse
+  //    Each cell will have an indentity picked at random, split the others off and from the remaining one and call gridTraverse
   //  Structure -> [{y:0, x:0, amount: 2}, {y:0, x: 1, amount: 1}, ...]
   let neighboursCue = [];
   //  at the end do one pass with array.sort(), it checks each index and compares the index.amount to sort
@@ -106,61 +106,35 @@ export const gridTraverse = (array, y, x) => {
       console.log("North West CORNER");
       //  Loops valid directions for this particular location and returns then as a string
       conditionalDirections.northWestCorner.forEach((direction) => {
+        const thisY = [allDirections[direction].y()];
+        const thisX = [allDirections[direction].x()];
         //  From the valid directions get the cell in that direction of original cell
-        array[allDirections[direction].y()][
-          allDirections[direction].x()
-        ].forEach((identity) => {
+        array[thisY][thisX].forEach((identity) => {
           //  If this identity, in this cell, is not in the rules of the original cell of its allowed neighbours of that direction remove it
-
-          if (array[y][x][0][1].rules[direction].indexOf(identity[0]) === -1) {
-            //  If identity can not be in that direction split from original array
-
-            //  Splices / mutates original array the current identity, thus instantly displays the mutation
-            //  How it works: Selects exact cell in which it currently is in,
-            //  FIXME:
-            //  Not splicing the correct indentity
-            //    Because when checking inside array[allDirections[direction].y()][allDirections[direction].x()]
-            //    There isn't an identity, just more arrays, need to match the same format
-            //    i.e We have [[],[],[]] and it is looking for "water" so always returns -1
-            console.log("arrayClone: ", arrayClone);
-            console.log(
-              arrayClone[allDirections[direction].y()][
-                allDirections[direction].x()
-              ].findIndex((eachId, index) => {
-                console.log("eachId: ", eachId);
+          if (
+            arrayClone[y][x][0][1].rules[direction].indexOf(identity[0]) === -1
+          ) {
+            //  If current identity can not be in that direction splice from cloned array
+            arrayClone[thisY][thisX].splice(
+              arrayClone[thisY][thisX].findIndex((eachId) => {
                 if (eachId[0] === identity[0]) {
-                  return index;
-                }
-              })
-            );
-            arrayClone[allDirections[direction].y()][
-              allDirections[direction].x()
-            ].splice(
-              arrayClone[allDirections[direction].y()][
-                allDirections[direction].x()
-              ].findIndex((eachId, index) => {
-                if (eachId[0] === identity[0]) {
-                  return index;
+                  return true;
                 }
               }),
               1
             );
-            console.log(
-              "-----------------------------------------------------"
-            );
           }
         });
+        //  TODO:
+        //  Somehow soft-code amount of identities
         //  If at least one identity was split, add to the back line of neighboursCue to call the current location of the cell
         if (
-          array[allDirections[direction].y()][allDirections[direction].x()]
-            .length < 4 //  Hard coded amount of identities
+          arrayClone[thisY][thisX].length < 4 //  Hard coded amount of identities
         )
           neighboursCue.push({
             y: allDirections[direction].y(),
             x: allDirections[direction].x(),
-            amount:
-              array[allDirections[direction].y()][allDirections[direction].x()]
-                .length,
+            amount: arrayClone[thisY][thisX].length,
           });
       });
       //  North WALL
@@ -204,7 +178,7 @@ export const gridTraverse = (array, y, x) => {
   // }
 
   //  TODO:
-  //  Call gridTraverse for the newly selected block if grid hasn't yet fully collapsed
+  //  Call gridTraverse for the newly selected cell if grid hasn't yet fully collapsed
   //  Should it traverse neighboursCue instead and call all?
   //    Recursevely that might create issues. If one cell is already empty when going back to previous cells in neighboursCue array
   //   //  Lowest entropy cell x and y
