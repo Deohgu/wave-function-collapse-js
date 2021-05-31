@@ -18,22 +18,21 @@
 //    Not sure a loop is needed, recursevely traverses the grid anyway
 /////////////
 export const gridTraverse = (array, y, x) => {
-  //  FIXME:
-  //  Not working fully here
+  let arrayClone = JSON.parse(JSON.stringify(array));
+
   if (array[y][x].length > 1) {
     //  Select an identity at random of the ones still available / splice off the others
     //  Picks a random valid index
     const randomIdentityIndex = Math.floor(
-      Math.random() * (array[y][1].length - 1 - 0) + 0
+      Math.random() * (array[y][1].length - 0) + 0
     );
 
     //  Only return selected identity
-    console.log("array before: ", array);
-    array = array[y][x].slice(randomIdentityIndex, randomIdentityIndex);
-    console.log("array after: ", array);
+    arrayClone[y][x] = arrayClone[y][x].slice(
+      randomIdentityIndex,
+      randomIdentityIndex + 1
+    );
   }
-
-  const arrayClone = JSON.parse(JSON.stringify(array));
 
   //  If not against a wall
   //  x and y are equal to the index in the loops which determines the current cell
@@ -108,20 +107,47 @@ export const gridTraverse = (array, y, x) => {
       //  Loops valid directions for this particular location and returns then as a string
       conditionalDirections.northWestCorner.forEach((direction) => {
         //  From the valid directions get the cell in that direction of original cell
-        arrayClone[allDirections[direction].y()][
+        array[allDirections[direction].y()][
           allDirections[direction].x()
         ].forEach((identity) => {
           //  If this identity, in this cell, is not in the rules of the original cell of its allowed neighbours of that direction remove it
-          if (
-            arrayClone[y][x][0][1].rules[direction].indexOf(identity[0]) === -1
-          ) {
+
+          if (array[y][x][0][1].rules[direction].indexOf(identity[0]) === -1) {
             //  If identity can not be in that direction split from original array
 
             //  Splices / mutates original array the current identity, thus instantly displays the mutation
             //  How it works: Selects exact cell in which it currently is in,
-            array[allDirections[direction].y()][
+            //  FIXME:
+            //  Not splicing the correct indentity
+            //    Because when checking inside array[allDirections[direction].y()][allDirections[direction].x()]
+            //    There isn't an identity, just more arrays, need to match the same format
+            //    i.e We have [[],[],[]] and it is looking for "water" so always returns -1
+            console.log("arrayClone: ", arrayClone);
+            console.log(
+              arrayClone[allDirections[direction].y()][
+                allDirections[direction].x()
+              ].findIndex((eachId, index) => {
+                console.log("eachId: ", eachId);
+                if (eachId[0] === identity[0]) {
+                  return index;
+                }
+              })
+            );
+            arrayClone[allDirections[direction].y()][
               allDirections[direction].x()
-            ].splice(array.indexOf(identity[0]), 1);
+            ].splice(
+              arrayClone[allDirections[direction].y()][
+                allDirections[direction].x()
+              ].findIndex((eachId, index) => {
+                if (eachId[0] === identity[0]) {
+                  return index;
+                }
+              }),
+              1
+            );
+            console.log(
+              "-----------------------------------------------------"
+            );
           }
         });
         //  If at least one identity was split, add to the back line of neighboursCue to call the current location of the cell
@@ -172,15 +198,17 @@ export const gridTraverse = (array, y, x) => {
     return a.amount - b.amount;
   });
 
+  console.log("arrayClone at end: ", arrayClone);
+  // if ("Grid has fully collapsed") {
+  return arrayClone;
+  // }
+
   //  TODO:
   //  Call gridTraverse for the newly selected block if grid hasn't yet fully collapsed
   //  Should it traverse neighboursCue instead and call all?
   //    Recursevely that might create issues. If one cell is already empty when going back to previous cells in neighboursCue array
-  if ("grid has not fully collpase" !== String) {
-    // eslint-disable-next-line no-unused-vars
-    //  Lowest entropy cell x and y
-    const y = neighboursCue[0].y;
-    const x = neighboursCue[0].x;
-    gridTraverse(array, y, x);
-  }
+  //   //  Lowest entropy cell x and y
+  //   const y = neighboursCue[0].y;
+  //   const x = neighboursCue[0].x;
+  //   gridTraverse(arrayClone, y, x);
 };
