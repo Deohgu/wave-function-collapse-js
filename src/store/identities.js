@@ -96,6 +96,8 @@ export default {
       }
     },
   },
+  //  TODO:
+  //  Improve this convertion, we want an array with each identity as an object
   getters: {
     identitiesArray: (state) => Object.entries(state),
   },
