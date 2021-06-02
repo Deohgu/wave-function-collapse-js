@@ -62,6 +62,20 @@ export const gridTraverse = (array, y, x) => {
     //  North East CORNER
     if (x === array[0].length - 1) {
       console.log("North East CORNER");
+      //  Filters out invalid neighbouring identities
+      //    Returns an object containing the new array and the blocks cued to be called recursevely
+      const filteredIdentities = filterIdentities(
+        "northEastCorner",
+        allDirections,
+        conditionalDirections,
+        arrayClone,
+        y,
+        x,
+        neighboursCue
+      );
+      arrayClone = filteredIdentities.arrayClone;
+      neighboursCue = filteredIdentities.neighboursCueClone;
+
       //  North West CORNER
     } else if (x === 0) {
       console.log("North West CORNER");
@@ -82,28 +96,123 @@ export const gridTraverse = (array, y, x) => {
       //  North WALL
     } else {
       console.log("North WALL");
+      //  Filters out invalid neighbouring identities
+      //    Returns an object containing the new array and the blocks cued to be called recursevely
+      const filteredIdentities = filterIdentities(
+        "northWall",
+        allDirections,
+        conditionalDirections,
+        arrayClone,
+        y,
+        x,
+        neighboursCue
+      );
+      arrayClone = filteredIdentities.arrayClone;
+      neighboursCue = filteredIdentities.neighboursCueClone;
     }
     //  South Wall Section
   } else if (y === array.length - 1) {
     //  South West CORNER
     if (x === array[0].length - 1) {
       console.log("South West CORNER");
+      //  Filters out invalid neighbouring identities
+      //    Returns an object containing the new array and the blocks cued to be called recursevely
+      const filteredIdentities = filterIdentities(
+        "southWestCorner",
+        allDirections,
+        conditionalDirections,
+        arrayClone,
+        y,
+        x,
+        neighboursCue
+      );
+      arrayClone = filteredIdentities.arrayClone;
+      neighboursCue = filteredIdentities.neighboursCueClone;
+
       // South East CORNER
     } else if (x === 0) {
       console.log("South East CORNER");
+      //  Filters out invalid neighbouring identities
+      //    Returns an object containing the new array and the blocks cued to be called recursevely
+      const filteredIdentities = filterIdentities(
+        "southEastCorner",
+        allDirections,
+        conditionalDirections,
+        arrayClone,
+        y,
+        x,
+        neighboursCue
+      );
+      arrayClone = filteredIdentities.arrayClone;
+      neighboursCue = filteredIdentities.neighboursCueClone;
+
       //  South WALL
     } else {
       console.log("South WALL");
+      //  Filters out invalid neighbouring identities
+      //    Returns an object containing the new array and the blocks cued to be called recursevely
+      const filteredIdentities = filterIdentities(
+        "southWall",
+        allDirections,
+        conditionalDirections,
+        arrayClone,
+        y,
+        x,
+        neighboursCue
+      );
+      arrayClone = filteredIdentities.arrayClone;
+      neighboursCue = filteredIdentities.neighboursCueClone;
     }
     //  East WALL ONLY
   } else if (x === array[0].length - 1) {
     console.log("East WALL");
+    //  Filters out invalid neighbouring identities
+    //    Returns an object containing the new array and the blocks cued to be called recursevely
+    const filteredIdentities = filterIdentities(
+      "eastWall",
+      allDirections,
+      conditionalDirections,
+      arrayClone,
+      y,
+      x,
+      neighboursCue
+    );
+    arrayClone = filteredIdentities.arrayClone;
+    neighboursCue = filteredIdentities.neighboursCueClone;
+
     //  West WALL ONLY
   } else if (x === 0) {
     console.log("West WALL");
+    //  Filters out invalid neighbouring identities
+    //    Returns an object containing the new array and the blocks cued to be called recursevely
+    const filteredIdentities = filterIdentities(
+      "westWall",
+      allDirections,
+      conditionalDirections,
+      arrayClone,
+      y,
+      x,
+      neighboursCue
+    );
+    arrayClone = filteredIdentities.arrayClone;
+    neighboursCue = filteredIdentities.neighboursCueClone;
+
     // AWAY FROM WALL
   } else {
     console.log("AWAY FROM WALL");
+    //  Filters out invalid neighbouring identities
+    //    Returns an object containing the new array and the blocks cued to be called recursevely
+    const filteredIdentities = filterIdentities(
+      "noWall",
+      allDirections,
+      conditionalDirections,
+      arrayClone,
+      y,
+      x,
+      neighboursCue
+    );
+    arrayClone = filteredIdentities.arrayClone;
+    neighboursCue = filteredIdentities.neighboursCueClone;
   }
 
   //  Sorts blocks in neighboursCue by ascending amount of identities, i.e lower entropy
