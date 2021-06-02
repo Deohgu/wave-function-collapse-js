@@ -33,17 +33,17 @@ export default {
     y: Number,
     x: Number,
   },
-  data() {
-    return {
-      gridArray: this.$store.state.grid.grid,
-    };
-  },
   methods: {
     logToConsole: (toLog) => console.log(toLog),
     // TESTING grid traverse algorithm ///
     traverse(array, x, y) {
       const collapsed = gridTraverse(array, x, y);
       this.$store.state.grid.grid = collapsed;
+    },
+  },
+  computed: {
+    gridArray() {
+      return this.$store.state.grid.grid;
     },
   },
 };
