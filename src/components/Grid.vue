@@ -9,6 +9,8 @@
         v-for="(cellCol, cellColIndex) in cellRow"
         :key="cellColIndex"
         :identitiesInCell="cellCol"
+        :y="cellRowIndex"
+        :x="cellColIndex"
       />
     </div>
   </div>

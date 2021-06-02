@@ -2,7 +2,7 @@
   <div
     class="cell"
     :class="{ 'cell--flex': identitiesInCell.length === 1 }"
-    @click="traverse(gridArray, 0, 0)"
+    @click="traverse(gridArray, y, x)"
   >
     <SVGcell
       v-for="(identity, identityIndex) in identitiesInCell"
@@ -30,6 +30,8 @@ export default {
   components: { SVGcell },
   props: {
     identitiesInCell: Array,
+    y: Number,
+    x: Number,
   },
   data() {
     return {
