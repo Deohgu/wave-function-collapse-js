@@ -65,10 +65,10 @@ export const gridTraverse = (array, y, x) => {
       //  North West CORNER
     } else if (x === 0) {
       console.log("North West CORNER");
-
       //  Filters out invalid neighbouring identities
       //    Returns an object containing the new array and the blocks cued to be called recursevely
       const filteredIdentities = filterIdentities(
+        "northWestCorner",
         allDirections,
         conditionalDirections,
         arrayClone,
@@ -76,7 +76,6 @@ export const gridTraverse = (array, y, x) => {
         x,
         neighboursCue
       );
-
       arrayClone = filteredIdentities.arrayClone;
       neighboursCue = filteredIdentities.neighboursCueClone;
 

@@ -1,4 +1,5 @@
 export default (
+  direction,
   allDirections,
   conditionalDirections,
   array,
@@ -10,7 +11,7 @@ export default (
   let neighboursCueClone = JSON.parse(JSON.stringify(neighboursCue));
   //  Loops valid directions for this particular location and returns then as a string
 
-  conditionalDirections.northWestCorner.forEach((direction) => {
+  conditionalDirections[direction].forEach((direction) => {
     const thisY = [allDirections(y, x)[direction].y()];
     const thisX = [allDirections(y, x)[direction].x()];
 
