@@ -65,32 +65,21 @@ export const gridTraverse = (array, y, x) => {
       //  North West CORNER
     } else if (x === 0) {
       console.log("North West CORNER");
-      //  Loops valid directions for this particular location and returns then as a string
-      conditionalDirections.northWestCorner.forEach((direction) => {
-        const thisY = [allDirections(y, x)[direction].y()];
-        const thisX = [allDirections(y, x)[direction].x()];
 
-        arrayClone = filterIdentities(
-          direction,
-          arrayClone,
-          y,
-          x,
-          thisY,
-          thisX
-        );
+      //  Filters out invalid neighbouring identities
+      //    Returns an object containing the new array and the blocks cued to be called recursevely
+      const filteredIdentities = filterIdentities(
+        allDirections,
+        conditionalDirections,
+        arrayClone,
+        y,
+        x,
+        neighboursCue
+      );
 
-        //  TODO:
-        //  Somehow soft-code amount of identities
-        //  If at least one identity was split, add to the back line of neighboursCue to call the current location of the cell
-        if (
-          arrayClone[thisY][thisX].length < 4 //  Hard coded amount of identities
-        )
-          neighboursCue.push({
-            y: allDirections(y, x)[direction].y(),
-            x: allDirections(y, x)[direction].x(),
-            amount: arrayClone[thisY][thisX].length,
-          });
-      });
+      arrayClone = filteredIdentities.arrayClone;
+      neighboursCue = filteredIdentities.neighboursCueClone;
+
       //  North WALL
     } else {
       console.log("North WALL");
