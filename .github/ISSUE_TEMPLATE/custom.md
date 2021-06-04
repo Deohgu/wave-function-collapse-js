@@ -11,7 +11,7 @@ assignees: ''
 Briefly describe the end goal
 
 ## Difficulties
-Potential problems
+- Potential problems
 
 ## Recommendations
 - Ideas on how to tackle this issue
