@@ -62,19 +62,34 @@ export const gridTraverse = (array, y, x) => {
     //  North East CORNER
     if (x === array[0].length - 1) {
       console.log("North East CORNER");
-      //  Filters out invalid neighbouring identities
-      //    Returns an object containing the new array and the blocks cued to be called recursevely
-      const filteredIdentities = filterIdentities(
-        "northEastCorner",
-        allDirections,
-        conditionalDirections,
-        arrayClone,
-        y,
-        x,
-        neighboursCue
-      );
-      arrayClone = filteredIdentities.arrayClone;
-      neighboursCue = filteredIdentities.neighboursCueClone;
+
+      conditionalDirections.northEastCorner.forEach((direction) => {
+        const thisY = [allDirections(y, x)[direction].y()];
+        const thisX = [allDirections(y, x)[direction].x()];
+
+        const coords = {
+          y,
+          x,
+          thisY,
+          thisX,
+        };
+
+        //  Filters out invalid neighbouring identities
+        //    Returns an object containing the new array and the blocks cued to be called recursevely
+        arrayClone = filterIdentities(direction, arrayClone, coords);
+
+        //  TODO:
+        //  Somehow soft-code amount of identities
+        //  If at least one identity was split, add to the back line of neighboursCueClone to call the current location of the cell
+        if (
+          arrayClone[thisY][thisX].length < 4 //  Hard coded amount of identities
+        )
+          neighboursCue.push({
+            y: allDirections(y, x)[direction].y(),
+            x: allDirections(y, x)[direction].x(),
+            amount: arrayClone[thisY][thisX].length,
+          });
+      });
 
       //  North West CORNER
     } else if (x === 0) {
