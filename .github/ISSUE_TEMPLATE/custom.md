@@ -7,11 +7,11 @@ assignees: ''
 
 ---
 
-### Description
+## Description
 Briefly describe the end goal
 
-### Difficulties
+## Difficulties
 Potential problems
 
-### Recommendations
+## Recommendations
 - Ideas on how to tackle this issue
