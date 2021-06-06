@@ -12,6 +12,19 @@ export default {
       },
       symbol: "≈",
     },
+    coast: {
+      colour: "light brown",
+      rulesDescription: "Coast must have Land on one side and Sea on the other",
+      rules: {
+        //  Will need to be refactored to a Standardised way
+        //    Have it in a way that conditionally it can be piped to another loop in an if statement
+        north: ["water", "coast"],
+        east: ["water", "coast"],
+        south: ["water", "coast"],
+        west: ["water", "coast"],
+      },
+      symbol: "◢",
+    },
     // coast: {
     //   colour: "light brown",
     //   rulesDescription: "Coast must have Land on one side and Sea on the other",
