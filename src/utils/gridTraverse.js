@@ -53,67 +53,28 @@ export const gridTraverse = (array, y, x) => {
   //  Of the ones still available select an identity at random and remove the others
   arrayClone = picksRandomIdentity(array, coords);
 
-  // const conditionalddddddDirections = [
-  //   y === 0 && x === array[0].length - 1,
-  //   y === 0 && x === 0,
-  //   y === 0,
-  //   y === array.length - 1 && x === array[0].length - 1,
-  //   y === array.length - 1 && x === 0,
-  //   y === array.length - 1,
-  // ];
+  const conditionalDirections = [
+    y === 0 && x === array[0].length - 1, // North East
+    y === 0 && x === 0, // North west
+    y === 0, // North
+    y === array.length - 1 && x === array[0].length - 1, // North East
+    y === array.length - 1 && x === 0, // North West
+    y === array.length - 1, // South
+    x === array[0].length - 1, // East
+    x === 0, // West
+    !y === 0 && y === array.length - 1 && x === array[0].length - 1 && x === 0, // Away from wall
+  ];
 
-  //  Starts collapsing
-  //  North Wall Section
-  if (y === 0) {
-    //  North East CORNER
-    if (x === array[0].length - 1) {
-      console.log("North East CORNER");
+  conditionalDirections.forEach((isCorrectGridArea, index) => {
+    if (isCorrectGridArea) {
+      const directionNames = Object.keys(validSearchDirections);
+      const currValidSearchDirections =
+        validSearchDirections[directionNames[index]];
 
-      // Checks valid neighbouring cells
-      validSearchDirections.northEastCorner.forEach((direction) => {
-        coords.currY = [allDirections(y, x)[direction].y()];
-        coords.currX = [allDirections(y, x)[direction].x()];
+      console.log(directionNames[index]);
 
-        //  Filters out invalid neighbouring identities according to the current identity rules
-        arrayClone = filterIdentities(direction, arrayClone, coords);
-
-        //  If at least one identity was split from cell being checked, add to stack
-        neighboursCallStack = addsModifiedBlock(
-          arrayClone,
-          coords,
-          neighboursCallStack,
-          allDirections,
-          direction
-        );
-      });
-
-      //  North West CORNER
-    } else if (x === 0) {
-      console.log("North West CORNER");
-
-      // Checks valid neighbouring cells
-      validSearchDirections.northWestCorner.forEach((direction) => {
-        coords.currY = [allDirections(y, x)[direction].y()];
-        coords.currX = [allDirections(y, x)[direction].x()];
-
-        //  Filters out invalid neighbouring identities according to the current identity rules
-        arrayClone = filterIdentities(direction, arrayClone, coords);
-
-        //  If at least one identity was split from cell being checked, add to stack
-        neighboursCallStack = addsModifiedBlock(
-          arrayClone,
-          coords,
-          neighboursCallStack,
-          allDirections,
-          direction
-        );
-      });
-      //  North WALL
-    } else {
-      console.log("North WALL");
-
-      // Checks valid neighbouring cells
-      validSearchDirections.northWall.forEach((direction) => {
+      //  Checks valid neighbouring cells
+      currValidSearchDirections.forEach((direction) => {
         coords.currY = [allDirections(y, x)[direction].y()];
         coords.currX = [allDirections(y, x)[direction].x()];
 
@@ -130,136 +91,7 @@ export const gridTraverse = (array, y, x) => {
         );
       });
     }
-    //  South Wall Section
-  } else if (y === array.length - 1) {
-    //  South West CORNER
-    if (x === array[0].length - 1) {
-      console.log("South West CORNER");
-
-      // Checks valid neighbouring cells
-      validSearchDirections.southWestCorner.forEach((direction) => {
-        coords.currY = [allDirections(y, x)[direction].y()];
-        coords.currX = [allDirections(y, x)[direction].x()];
-
-        //  Filters out invalid neighbouring identities according to the current identity rules
-        arrayClone = filterIdentities(direction, arrayClone, coords);
-
-        //  If at least one identity was split from cell being checked, add to stack
-        neighboursCallStack = addsModifiedBlock(
-          arrayClone,
-          coords,
-          neighboursCallStack,
-          allDirections,
-          direction
-        );
-      });
-      // South East CORNER
-    } else if (x === 0) {
-      console.log("South East CORNER");
-
-      // Checks valid neighbouring cells
-      validSearchDirections.southEastCorner.forEach((direction) => {
-        coords.currY = [allDirections(y, x)[direction].y()];
-        coords.currX = [allDirections(y, x)[direction].x()];
-
-        //  Filters out invalid neighbouring identities according to the current identity rules
-        arrayClone = filterIdentities(direction, arrayClone, coords);
-
-        //  If at least one identity was split from cell being checked, add to stack
-        neighboursCallStack = addsModifiedBlock(
-          arrayClone,
-          coords,
-          neighboursCallStack,
-          allDirections,
-          direction
-        );
-      });
-      //  South WALL
-    } else {
-      console.log("South WALL");
-
-      // Checks valid neighbouring cells
-      validSearchDirections.southWall.forEach((direction) => {
-        coords.currY = [allDirections(y, x)[direction].y()];
-        coords.currX = [allDirections(y, x)[direction].x()];
-
-        //  Filters out invalid neighbouring identities according to the current identity rules
-        arrayClone = filterIdentities(direction, arrayClone, coords);
-
-        //  If at least one identity was split from cell being checked, add to stack
-        neighboursCallStack = addsModifiedBlock(
-          arrayClone,
-          coords,
-          neighboursCallStack,
-          allDirections,
-          direction
-        );
-      });
-    }
-    //  East WALL ONLY
-  } else if (x === array[0].length - 1) {
-    console.log("East WALL");
-
-    // Checks valid neighbouring cells
-    validSearchDirections.eastWall.forEach((direction) => {
-      coords.currY = [allDirections(y, x)[direction].y()];
-      coords.currX = [allDirections(y, x)[direction].x()];
-
-      //  Filters out invalid neighbouring identities according to the current identity rules
-      arrayClone = filterIdentities(direction, arrayClone, coords);
-
-      //  If at least one identity was split from cell being checked, add to stack
-      neighboursCallStack = addsModifiedBlock(
-        arrayClone,
-        coords,
-        neighboursCallStack,
-        allDirections,
-        direction
-      );
-    });
-    //  West WALL ONLY
-  } else if (x === 0) {
-    console.log("West WALL");
-
-    // Checks valid neighbouring cells
-    validSearchDirections.westWall.forEach((direction) => {
-      coords.currY = [allDirections(y, x)[direction].y()];
-      coords.currX = [allDirections(y, x)[direction].x()];
-
-      //  Filters out invalid neighbouring identities according to the current identity rules
-      arrayClone = filterIdentities(direction, arrayClone, coords);
-
-      //  If at least one identity was split from cell being checked, add to stack
-      neighboursCallStack = addsModifiedBlock(
-        arrayClone,
-        coords,
-        neighboursCallStack,
-        allDirections,
-        direction
-      );
-    });
-    // AWAY FROM WALL
-  } else {
-    console.log("AWAY FROM WALL");
-
-    // Checks valid neighbouring cells
-    validSearchDirections.noWall.forEach((direction) => {
-      coords.currY = [allDirections(y, x)[direction].y()];
-      coords.currX = [allDirections(y, x)[direction].x()];
-
-      //  Filters out invalid neighbouring identities according to the current identity rules
-      arrayClone = filterIdentities(direction, arrayClone, coords);
-
-      //  If at least one identity was split from cell being checked, add to stack
-      neighboursCallStack = addsModifiedBlock(
-        arrayClone,
-        coords,
-        neighboursCallStack,
-        allDirections,
-        direction
-      );
-    });
-  }
+  });
 
   //  Sorts cells in neighboursCallStack by ascending amount of identities, i.e lower entropy
   neighboursCallStack = neighboursCallStack.sort((a, b) => {

@@ -35,13 +35,13 @@ export const allDirections = (y, x) => ({
 
 //  Directions for each position in each if section
 export const validSearchDirections = {
-  northWall: ["east", "south", "west"],
   northEastCorner: ["south", "west"],
-  eastWall: ["north", "south", "west"],
-  southEastCorner: ["north", "west"],
-  southWall: ["north", "east", "west"],
-  southWestCorner: ["north", "east"],
-  westWall: ["north", "east", "south"],
   northWestCorner: ["east", "south"],
+  northWall: ["east", "south", "west"],
+  southEastCorner: ["north", "west"],
+  southWestCorner: ["north", "east"],
+  southWall: ["north", "east", "west"],
+  eastWall: ["north", "south", "west"],
+  westWall: ["north", "east", "south"],
   noWall: ["north", "east", "south", "west"],
 };
