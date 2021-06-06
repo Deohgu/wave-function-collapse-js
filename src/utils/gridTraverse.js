@@ -33,27 +33,10 @@ import {
 
 import filterIdentities from "@/utils/traverse/filterIdentities";
 import addsModifiedBlock from "@/utils/traverse/addsModifiedBlock";
+import picksRandomIdentity from "./traverse/picksRandomIdentity";
 
 export const gridTraverse = (array, y, x) => {
   let arrayClone = JSON.parse(JSON.stringify(array));
-
-  //  Blocks that had identities split from it -> [{y:0, x:0, amount: 2}, ...]
-  //    Each cell will have an indentity picked at random, split the others off and from the remaining one and call gridTraverse
-  //  at the end do one pass with array.sort(), it checks each index and compares the index.amount to sort
-  let neighboursCue = [];
-
-  //  Of the ones still available select an identity at random and remove the others
-  if (array[y][x].length > 1) {
-    const randomIdentityIndex = Math.floor(Math.random() * array[y][1].length);
-
-    arrayClone[y][x] = arrayClone[y][x].slice(
-      randomIdentityIndex,
-      randomIdentityIndex + 1
-    );
-  }
-
-  //  FIXME:
-  //  SKIP cells with one identity!
 
   const coords = {
     y,
@@ -61,6 +44,17 @@ export const gridTraverse = (array, y, x) => {
     thisY: 0,
     thisX: 0,
   };
+
+  //  Blocks that had identities split from it -> [{y:0, x:0, amount: 2}, ...]
+  //    Each cell will have an indentity picked at random, split the others off and from the remaining one and call gridTraverse
+  //  at the end do one pass with array.sort(), it checks each index and compares the index.amount to sort
+  let neighboursCue = [];
+
+  //  Of the ones still available select an identity at random and remove the others
+  arrayClone = picksRandomIdentity(array, coords);
+
+  //  FIXME:
+  //  SKIP cells with one identity!
 
   //  Starts collapsing
   //  North Wall Section
