@@ -45,7 +45,7 @@ export const gridTraverse = (array, y, x) => {
     thisX: 0,
   };
 
-  //  Blocks that had identities split from it -> [{y:0, x:0, amount: 2}, ...]
+  //  Cells that had identities split from it -> [{y:0, x:0, amount: 2}, ...]
   //    Each cell will have an indentity picked at random, split the others off and from the remaining one and call gridTraverse
   //  at the end do one pass with array.sort(), it checks each index and compares the index.amount to sort
   let neighboursCallStack = [];
@@ -67,11 +67,10 @@ export const gridTraverse = (array, y, x) => {
         coords.thisY = [allDirections(y, x)[direction].y()];
         coords.thisX = [allDirections(y, x)[direction].x()];
 
-        //  Filters out invalid neighbouring identities
-        //    Returns an object containing the new array and the blocks cued to be called recursevely
+        //  Filters out invalid neighbouring identities according to the current identity rules
         arrayClone = filterIdentities(direction, arrayClone, coords);
 
-        //  If at least one identity was split, add to the back line of neighboursCallStackClone to call the current location of the cell
+        //  If at least one identity was split in cell being checked, add to the back line of neighboursCallStackClone to call the current location of the cell
         neighboursCallStack = addsModifiedBlock(
           arrayClone,
           coords,
@@ -85,7 +84,7 @@ export const gridTraverse = (array, y, x) => {
     } else if (x === 0) {
       console.log("North West CORNER");
       //  Filters out invalid neighbouring identities
-      //    Returns an object containing the new array and the blocks cued to be called recursevely
+      //    Returns an object containing the new array and the cells cued to be called recursevely
       const filteredIdentities = filterIdentities(
         "northWestCorner",
         allDirections,
@@ -102,7 +101,7 @@ export const gridTraverse = (array, y, x) => {
     } else {
       console.log("North WALL");
       //  Filters out invalid neighbouring identities
-      //    Returns an object containing the new array and the blocks cued to be called recursevely
+      //    Returns an object containing the new array and the cells cued to be called recursevely
       const filteredIdentities = filterIdentities(
         "northWall",
         allDirections,
@@ -121,7 +120,7 @@ export const gridTraverse = (array, y, x) => {
     if (x === array[0].length - 1) {
       console.log("South West CORNER");
       //  Filters out invalid neighbouring identities
-      //    Returns an object containing the new array and the blocks cued to be called recursevely
+      //    Returns an object containing the new array and the cells cued to be called recursevely
       const filteredIdentities = filterIdentities(
         "southWestCorner",
         allDirections,
@@ -138,7 +137,7 @@ export const gridTraverse = (array, y, x) => {
     } else if (x === 0) {
       console.log("South East CORNER");
       //  Filters out invalid neighbouring identities
-      //    Returns an object containing the new array and the blocks cued to be called recursevely
+      //    Returns an object containing the new array and the cells cued to be called recursevely
       const filteredIdentities = filterIdentities(
         "southEastCorner",
         allDirections,
@@ -155,7 +154,7 @@ export const gridTraverse = (array, y, x) => {
     } else {
       console.log("South WALL");
       //  Filters out invalid neighbouring identities
-      //    Returns an object containing the new array and the blocks cued to be called recursevely
+      //    Returns an object containing the new array and the cells cued to be called recursevely
       const filteredIdentities = filterIdentities(
         "southWall",
         allDirections,
@@ -172,7 +171,7 @@ export const gridTraverse = (array, y, x) => {
   } else if (x === array[0].length - 1) {
     console.log("East WALL");
     //  Filters out invalid neighbouring identities
-    //    Returns an object containing the new array and the blocks cued to be called recursevely
+    //    Returns an object containing the new array and the cells cued to be called recursevely
     const filteredIdentities = filterIdentities(
       "eastWall",
       allDirections,
@@ -189,7 +188,7 @@ export const gridTraverse = (array, y, x) => {
   } else if (x === 0) {
     console.log("West WALL");
     //  Filters out invalid neighbouring identities
-    //    Returns an object containing the new array and the blocks cued to be called recursevely
+    //    Returns an object containing the new array and the cells cued to be called recursevely
     const filteredIdentities = filterIdentities(
       "westWall",
       allDirections,
@@ -206,7 +205,7 @@ export const gridTraverse = (array, y, x) => {
   } else {
     console.log("AWAY FROM WALL");
     //  Filters out invalid neighbouring identities
-    //    Returns an object containing the new array and the blocks cued to be called recursevely
+    //    Returns an object containing the new array and the cells cued to be called recursevely
     const filteredIdentities = filterIdentities(
       "noWall",
       allDirections,
@@ -220,7 +219,7 @@ export const gridTraverse = (array, y, x) => {
     neighboursCallStack = filteredIdentities.neighboursCallStackClone;
   }
 
-  //  Sorts blocks in neighboursCallStack by ascending amount of identities, i.e lower entropy
+  //  Sorts cells in neighboursCallStack by ascending amount of identities, i.e lower entropy
   neighboursCallStack = neighboursCallStack.sort((a, b) => {
     if (a.amount === b.amount) {
       return Math.floor(Math.random() * (1 - -1) + -1); // If equal randomize order
