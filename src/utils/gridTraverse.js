@@ -84,140 +84,175 @@ export const gridTraverse = (array, y, x) => {
       //  North West CORNER
     } else if (x === 0) {
       console.log("North West CORNER");
-      //  Filters out invalid neighbouring identities
-      //    Returns an object containing the new array and the cells cued to be called recursevely
-      const filteredIdentities = filterIdentities(
-        "northWestCorner",
-        allDirections,
-        conditionalDirections,
-        arrayClone,
-        y,
-        x,
-        neighboursCallStack
-      );
-      arrayClone = filteredIdentities.arrayClone;
-      neighboursCallStack = filteredIdentities.neighboursCallStackClone;
 
+      // Checks valid neighbouring cells
+      conditionalDirections.northWestCorner.forEach((direction) => {
+        coords.currY = [allDirections(y, x)[direction].y()];
+        coords.currX = [allDirections(y, x)[direction].x()];
+
+        //  Filters out invalid neighbouring identities according to the current identity rules
+        arrayClone = filterIdentities(direction, arrayClone, coords);
+
+        //  If at least one identity was split from cell being checked, add to stack
+        neighboursCallStack = addsModifiedBlock(
+          arrayClone,
+          coords,
+          neighboursCallStack,
+          allDirections,
+          direction
+        );
+      });
       //  North WALL
     } else {
       console.log("North WALL");
-      //  Filters out invalid neighbouring identities
-      //    Returns an object containing the new array and the cells cued to be called recursevely
-      const filteredIdentities = filterIdentities(
-        "northWall",
-        allDirections,
-        conditionalDirections,
-        arrayClone,
-        y,
-        x,
-        neighboursCallStack
-      );
-      arrayClone = filteredIdentities.arrayClone;
-      neighboursCallStack = filteredIdentities.neighboursCallStackClone;
+
+      // Checks valid neighbouring cells
+      conditionalDirections.northWall.forEach((direction) => {
+        coords.currY = [allDirections(y, x)[direction].y()];
+        coords.currX = [allDirections(y, x)[direction].x()];
+
+        //  Filters out invalid neighbouring identities according to the current identity rules
+        arrayClone = filterIdentities(direction, arrayClone, coords);
+
+        //  If at least one identity was split from cell being checked, add to stack
+        neighboursCallStack = addsModifiedBlock(
+          arrayClone,
+          coords,
+          neighboursCallStack,
+          allDirections,
+          direction
+        );
+      });
     }
     //  South Wall Section
   } else if (y === array.length - 1) {
     //  South West CORNER
     if (x === array[0].length - 1) {
       console.log("South West CORNER");
-      //  Filters out invalid neighbouring identities
-      //    Returns an object containing the new array and the cells cued to be called recursevely
-      const filteredIdentities = filterIdentities(
-        "southWestCorner",
-        allDirections,
-        conditionalDirections,
-        arrayClone,
-        y,
-        x,
-        neighboursCallStack
-      );
-      arrayClone = filteredIdentities.arrayClone;
-      neighboursCallStack = filteredIdentities.neighboursCallStackClone;
 
+      // Checks valid neighbouring cells
+      conditionalDirections.southWestCorner.forEach((direction) => {
+        coords.currY = [allDirections(y, x)[direction].y()];
+        coords.currX = [allDirections(y, x)[direction].x()];
+
+        //  Filters out invalid neighbouring identities according to the current identity rules
+        arrayClone = filterIdentities(direction, arrayClone, coords);
+
+        //  If at least one identity was split from cell being checked, add to stack
+        neighboursCallStack = addsModifiedBlock(
+          arrayClone,
+          coords,
+          neighboursCallStack,
+          allDirections,
+          direction
+        );
+      });
       // South East CORNER
     } else if (x === 0) {
       console.log("South East CORNER");
-      //  Filters out invalid neighbouring identities
-      //    Returns an object containing the new array and the cells cued to be called recursevely
-      const filteredIdentities = filterIdentities(
-        "southEastCorner",
-        allDirections,
-        conditionalDirections,
-        arrayClone,
-        y,
-        x,
-        neighboursCallStack
-      );
-      arrayClone = filteredIdentities.arrayClone;
-      neighboursCallStack = filteredIdentities.neighboursCallStackClone;
 
+      // Checks valid neighbouring cells
+      conditionalDirections.southEastCorner.forEach((direction) => {
+        coords.currY = [allDirections(y, x)[direction].y()];
+        coords.currX = [allDirections(y, x)[direction].x()];
+
+        //  Filters out invalid neighbouring identities according to the current identity rules
+        arrayClone = filterIdentities(direction, arrayClone, coords);
+
+        //  If at least one identity was split from cell being checked, add to stack
+        neighboursCallStack = addsModifiedBlock(
+          arrayClone,
+          coords,
+          neighboursCallStack,
+          allDirections,
+          direction
+        );
+      });
       //  South WALL
     } else {
       console.log("South WALL");
-      //  Filters out invalid neighbouring identities
-      //    Returns an object containing the new array and the cells cued to be called recursevely
-      const filteredIdentities = filterIdentities(
-        "southWall",
-        allDirections,
-        conditionalDirections,
-        arrayClone,
-        y,
-        x,
-        neighboursCallStack
-      );
-      arrayClone = filteredIdentities.arrayClone;
-      neighboursCallStack = filteredIdentities.neighboursCallStackClone;
+
+      // Checks valid neighbouring cells
+      conditionalDirections.southWall.forEach((direction) => {
+        coords.currY = [allDirections(y, x)[direction].y()];
+        coords.currX = [allDirections(y, x)[direction].x()];
+
+        //  Filters out invalid neighbouring identities according to the current identity rules
+        arrayClone = filterIdentities(direction, arrayClone, coords);
+
+        //  If at least one identity was split from cell being checked, add to stack
+        neighboursCallStack = addsModifiedBlock(
+          arrayClone,
+          coords,
+          neighboursCallStack,
+          allDirections,
+          direction
+        );
+      });
     }
     //  East WALL ONLY
   } else if (x === array[0].length - 1) {
     console.log("East WALL");
-    //  Filters out invalid neighbouring identities
-    //    Returns an object containing the new array and the cells cued to be called recursevely
-    const filteredIdentities = filterIdentities(
-      "eastWall",
-      allDirections,
-      conditionalDirections,
-      arrayClone,
-      y,
-      x,
-      neighboursCallStack
-    );
-    arrayClone = filteredIdentities.arrayClone;
-    neighboursCallStack = filteredIdentities.neighboursCallStackClone;
 
+    // Checks valid neighbouring cells
+    conditionalDirections.eastWall.forEach((direction) => {
+      coords.currY = [allDirections(y, x)[direction].y()];
+      coords.currX = [allDirections(y, x)[direction].x()];
+
+      //  Filters out invalid neighbouring identities according to the current identity rules
+      arrayClone = filterIdentities(direction, arrayClone, coords);
+
+      //  If at least one identity was split from cell being checked, add to stack
+      neighboursCallStack = addsModifiedBlock(
+        arrayClone,
+        coords,
+        neighboursCallStack,
+        allDirections,
+        direction
+      );
+    });
     //  West WALL ONLY
   } else if (x === 0) {
     console.log("West WALL");
-    //  Filters out invalid neighbouring identities
-    //    Returns an object containing the new array and the cells cued to be called recursevely
-    const filteredIdentities = filterIdentities(
-      "westWall",
-      allDirections,
-      conditionalDirections,
-      arrayClone,
-      y,
-      x,
-      neighboursCallStack
-    );
-    arrayClone = filteredIdentities.arrayClone;
-    neighboursCallStack = filteredIdentities.neighboursCallStackClone;
 
+    // Checks valid neighbouring cells
+    conditionalDirections.westWall.forEach((direction) => {
+      coords.currY = [allDirections(y, x)[direction].y()];
+      coords.currX = [allDirections(y, x)[direction].x()];
+
+      //  Filters out invalid neighbouring identities according to the current identity rules
+      arrayClone = filterIdentities(direction, arrayClone, coords);
+
+      //  If at least one identity was split from cell being checked, add to stack
+      neighboursCallStack = addsModifiedBlock(
+        arrayClone,
+        coords,
+        neighboursCallStack,
+        allDirections,
+        direction
+      );
+    });
     // AWAY FROM WALL
   } else {
     console.log("AWAY FROM WALL");
-    //  Filters out invalid neighbouring identities
-    //    Returns an object containing the new array and the cells cued to be called recursevely
-    const filteredIdentities = filterIdentities(
-      "noWall",
-      allDirections,
-      conditionalDirections,
-      arrayClone,
-      y,
-      x,
-      neighboursCallStack
-    );
-    arrayClone = filteredIdentities.arrayClone;
-    neighboursCallStack = filteredIdentities.neighboursCallStackClone;
+
+    // Checks valid neighbouring cells
+    conditionalDirections.noWall.forEach((direction) => {
+      coords.currY = [allDirections(y, x)[direction].y()];
+      coords.currX = [allDirections(y, x)[direction].x()];
+
+      //  Filters out invalid neighbouring identities according to the current identity rules
+      arrayClone = filterIdentities(direction, arrayClone, coords);
+
+      //  If at least one identity was split from cell being checked, add to stack
+      neighboursCallStack = addsModifiedBlock(
+        arrayClone,
+        coords,
+        neighboursCallStack,
+        allDirections,
+        direction
+      );
+    });
   }
 
   //  Sorts cells in neighboursCallStack by ascending amount of identities, i.e lower entropy
