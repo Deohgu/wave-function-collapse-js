@@ -53,9 +53,6 @@ export const gridTraverse = (array, y, x) => {
   //  Of the ones still available select an identity at random and remove the others
   arrayClone = picksRandomIdentity(array, coords);
 
-  //  FIXME:
-  //  SKIP cells with one identity!
-
   //  Starts collapsing
   //  North Wall Section
   if (y === 0) {
