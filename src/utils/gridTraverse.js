@@ -24,11 +24,11 @@
 //      e.g: array[allDirections[east].y()][allDirections[east].x()]
 //      Allows usage with multiple arrays
 
-//  conditionalDirections:
+//  validSearchDirections:
 //    Directions for each position in each if section
 import {
   allDirections,
-  conditionalDirections,
+  validSearchDirections,
 } from "@/utils/traverse/directions";
 
 import filterIdentities from "@/utils/traverse/filterIdentities";
@@ -53,6 +53,15 @@ export const gridTraverse = (array, y, x) => {
   //  Of the ones still available select an identity at random and remove the others
   arrayClone = picksRandomIdentity(array, coords);
 
+  // const conditionalddddddDirections = [
+  //   y === 0 && x === array[0].length - 1,
+  //   y === 0 && x === 0,
+  //   y === 0,
+  //   y === array.length - 1 && x === array[0].length - 1,
+  //   y === array.length - 1 && x === 0,
+  //   y === array.length - 1,
+  // ];
+
   //  Starts collapsing
   //  North Wall Section
   if (y === 0) {
@@ -61,7 +70,7 @@ export const gridTraverse = (array, y, x) => {
       console.log("North East CORNER");
 
       // Checks valid neighbouring cells
-      conditionalDirections.northEastCorner.forEach((direction) => {
+      validSearchDirections.northEastCorner.forEach((direction) => {
         coords.currY = [allDirections(y, x)[direction].y()];
         coords.currX = [allDirections(y, x)[direction].x()];
 
@@ -83,7 +92,7 @@ export const gridTraverse = (array, y, x) => {
       console.log("North West CORNER");
 
       // Checks valid neighbouring cells
-      conditionalDirections.northWestCorner.forEach((direction) => {
+      validSearchDirections.northWestCorner.forEach((direction) => {
         coords.currY = [allDirections(y, x)[direction].y()];
         coords.currX = [allDirections(y, x)[direction].x()];
 
@@ -104,7 +113,7 @@ export const gridTraverse = (array, y, x) => {
       console.log("North WALL");
 
       // Checks valid neighbouring cells
-      conditionalDirections.northWall.forEach((direction) => {
+      validSearchDirections.northWall.forEach((direction) => {
         coords.currY = [allDirections(y, x)[direction].y()];
         coords.currX = [allDirections(y, x)[direction].x()];
 
@@ -128,7 +137,7 @@ export const gridTraverse = (array, y, x) => {
       console.log("South West CORNER");
 
       // Checks valid neighbouring cells
-      conditionalDirections.southWestCorner.forEach((direction) => {
+      validSearchDirections.southWestCorner.forEach((direction) => {
         coords.currY = [allDirections(y, x)[direction].y()];
         coords.currX = [allDirections(y, x)[direction].x()];
 
@@ -149,7 +158,7 @@ export const gridTraverse = (array, y, x) => {
       console.log("South East CORNER");
 
       // Checks valid neighbouring cells
-      conditionalDirections.southEastCorner.forEach((direction) => {
+      validSearchDirections.southEastCorner.forEach((direction) => {
         coords.currY = [allDirections(y, x)[direction].y()];
         coords.currX = [allDirections(y, x)[direction].x()];
 
@@ -170,7 +179,7 @@ export const gridTraverse = (array, y, x) => {
       console.log("South WALL");
 
       // Checks valid neighbouring cells
-      conditionalDirections.southWall.forEach((direction) => {
+      validSearchDirections.southWall.forEach((direction) => {
         coords.currY = [allDirections(y, x)[direction].y()];
         coords.currX = [allDirections(y, x)[direction].x()];
 
@@ -192,7 +201,7 @@ export const gridTraverse = (array, y, x) => {
     console.log("East WALL");
 
     // Checks valid neighbouring cells
-    conditionalDirections.eastWall.forEach((direction) => {
+    validSearchDirections.eastWall.forEach((direction) => {
       coords.currY = [allDirections(y, x)[direction].y()];
       coords.currX = [allDirections(y, x)[direction].x()];
 
@@ -213,7 +222,7 @@ export const gridTraverse = (array, y, x) => {
     console.log("West WALL");
 
     // Checks valid neighbouring cells
-    conditionalDirections.westWall.forEach((direction) => {
+    validSearchDirections.westWall.forEach((direction) => {
       coords.currY = [allDirections(y, x)[direction].y()];
       coords.currX = [allDirections(y, x)[direction].x()];
 
@@ -234,7 +243,7 @@ export const gridTraverse = (array, y, x) => {
     console.log("AWAY FROM WALL");
 
     // Checks valid neighbouring cells
-    conditionalDirections.noWall.forEach((direction) => {
+    validSearchDirections.noWall.forEach((direction) => {
       coords.currY = [allDirections(y, x)[direction].y()];
       coords.currX = [allDirections(y, x)[direction].x()];
 

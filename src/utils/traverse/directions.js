@@ -34,7 +34,7 @@ export const allDirections = (y, x) => ({
 });
 
 //  Directions for each position in each if section
-export const conditionalDirections = {
+export const validSearchDirections = {
   northWall: ["east", "south", "west"],
   northEastCorner: ["south", "west"],
   eastWall: ["north", "south", "west"],
