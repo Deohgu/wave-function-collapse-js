@@ -32,6 +32,7 @@ import {
 } from "@/utils/traverse/directions";
 
 import filterIdentities from "@/utils/traverse/filterIdentities";
+import addsModifiedBlock from "@/utils/traverse/addsModifiedBlock";
 
 export const gridTraverse = (array, y, x) => {
   let arrayClone = JSON.parse(JSON.stringify(array));
@@ -43,9 +44,7 @@ export const gridTraverse = (array, y, x) => {
 
   //  Of the ones still available select an identity at random and remove the others
   if (array[y][x].length > 1) {
-    const randomIdentityIndex = Math.floor(
-      Math.random() * (array[y][1].length - 0) + 0
-    );
+    const randomIdentityIndex = Math.floor(Math.random() * array[y][1].length);
 
     arrayClone[y][x] = arrayClone[y][x].slice(
       randomIdentityIndex,
@@ -56,6 +55,13 @@ export const gridTraverse = (array, y, x) => {
   //  FIXME:
   //  SKIP cells with one identity!
 
+  const coords = {
+    y,
+    x,
+    thisY: 0,
+    thisX: 0,
+  };
+
   //  Starts collapsing
   //  North Wall Section
   if (y === 0) {
@@ -64,31 +70,21 @@ export const gridTraverse = (array, y, x) => {
       console.log("North East CORNER");
 
       conditionalDirections.northEastCorner.forEach((direction) => {
-        const thisY = [allDirections(y, x)[direction].y()];
-        const thisX = [allDirections(y, x)[direction].x()];
-
-        const coords = {
-          y,
-          x,
-          thisY,
-          thisX,
-        };
+        coords.thisY = [allDirections(y, x)[direction].y()];
+        coords.thisX = [allDirections(y, x)[direction].x()];
 
         //  Filters out invalid neighbouring identities
         //    Returns an object containing the new array and the blocks cued to be called recursevely
         arrayClone = filterIdentities(direction, arrayClone, coords);
 
-        //  TODO:
-        //  Somehow soft-code amount of identities
         //  If at least one identity was split, add to the back line of neighboursCueClone to call the current location of the cell
-        if (
-          arrayClone[thisY][thisX].length < 4 //  Hard coded amount of identities
-        )
-          neighboursCue.push({
-            y: allDirections(y, x)[direction].y(),
-            x: allDirections(y, x)[direction].x(),
-            amount: arrayClone[thisY][thisX].length,
-          });
+        neighboursCue = addsModifiedBlock(
+          arrayClone,
+          coords,
+          neighboursCue,
+          allDirections,
+          direction
+        );
       });
 
       //  North West CORNER
