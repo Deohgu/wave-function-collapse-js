@@ -29,6 +29,7 @@
 import {
   allDirections,
   validSearchDirections,
+  conditionalDirections,
 } from "@/utils/traverse/directions";
 
 import filterIdentities from "@/utils/traverse/filterIdentities";
@@ -53,19 +54,7 @@ export const gridTraverse = (array, y, x) => {
   //  Of the ones still available select an identity at random and remove the others
   arrayClone = picksRandomIdentity(array, coords);
 
-  const conditionalDirections = [
-    y === 0 && x === array[0].length - 1, // North East
-    y === 0 && x === 0, // North west
-    y === 0, // North
-    y === array.length - 1 && x === array[0].length - 1, // North East
-    y === array.length - 1 && x === 0, // North West
-    y === array.length - 1, // South
-    x === array[0].length - 1, // East
-    x === 0, // West
-    !y === 0 && y === array.length - 1 && x === array[0].length - 1 && x === 0, // Away from wall
-  ];
-
-  conditionalDirections.forEach((isCorrectGridArea, index) => {
+  conditionalDirections(coords, array).forEach((isCorrectGridArea, index) => {
     if (isCorrectGridArea) {
       const directionNames = Object.keys(validSearchDirections);
       const currValidSearchDirections =
