@@ -49,11 +49,11 @@ export const validSearchDirections = {
 export const conditionalDirections = ({ y, x }, array) => [
   y === 0 && x === array[0].length - 1, // North East
   y === 0 && x === 0, // North west
-  y === 0, // North
+  y === 0 && x !== array[0].length - 1 && x !== 0, // North
   y === array.length - 1 && x === array[0].length - 1, // North East
   y === array.length - 1 && x === 0, // North West
-  y === array.length - 1, // South
-  x === array[0].length - 1, // East
-  x === 0, // West
+  y === array.length - 1 && x !== array[0].length - 1 && x !== 0, // South
+  x === array[0].length - 1 && y !== 0 && y !== array.length - 1, // East
+  x === 0 && y !== 0 && y !== array.length - 1, // West
   y !== 0 && y !== array.length - 1 && x !== array[0].length - 1 && x !== 0, // Away from wall
 ];
