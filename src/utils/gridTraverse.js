@@ -41,8 +41,8 @@ export const gridTraverse = (array, y, x) => {
   const coords = {
     y,
     x,
-    thisY: 0,
-    thisX: 0,
+    currY: 0,
+    currX: 0,
   };
 
   //  Cells that had identities split from it -> [{y:0, x:0, amount: 2}, ...]
@@ -63,14 +63,15 @@ export const gridTraverse = (array, y, x) => {
     if (x === array[0].length - 1) {
       console.log("North East CORNER");
 
+      // Checks valid neighbouring cells
       conditionalDirections.northEastCorner.forEach((direction) => {
-        coords.thisY = [allDirections(y, x)[direction].y()];
-        coords.thisX = [allDirections(y, x)[direction].x()];
+        coords.currY = [allDirections(y, x)[direction].y()];
+        coords.currX = [allDirections(y, x)[direction].x()];
 
         //  Filters out invalid neighbouring identities according to the current identity rules
         arrayClone = filterIdentities(direction, arrayClone, coords);
 
-        //  If at least one identity was split in cell being checked, add to the back line of neighboursCallStackClone to call the current location of the cell
+        //  If at least one identity was split from cell being checked, add to stack
         neighboursCallStack = addsModifiedBlock(
           arrayClone,
           coords,
