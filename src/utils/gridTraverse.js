@@ -48,7 +48,7 @@ export const gridTraverse = (array, y, x) => {
   //  Blocks that had identities split from it -> [{y:0, x:0, amount: 2}, ...]
   //    Each cell will have an indentity picked at random, split the others off and from the remaining one and call gridTraverse
   //  at the end do one pass with array.sort(), it checks each index and compares the index.amount to sort
-  let neighboursCue = [];
+  let neighboursCallStack = [];
 
   //  Of the ones still available select an identity at random and remove the others
   arrayClone = picksRandomIdentity(array, coords);
@@ -71,11 +71,11 @@ export const gridTraverse = (array, y, x) => {
         //    Returns an object containing the new array and the blocks cued to be called recursevely
         arrayClone = filterIdentities(direction, arrayClone, coords);
 
-        //  If at least one identity was split, add to the back line of neighboursCueClone to call the current location of the cell
-        neighboursCue = addsModifiedBlock(
+        //  If at least one identity was split, add to the back line of neighboursCallStackClone to call the current location of the cell
+        neighboursCallStack = addsModifiedBlock(
           arrayClone,
           coords,
-          neighboursCue,
+          neighboursCallStack,
           allDirections,
           direction
         );
@@ -93,10 +93,10 @@ export const gridTraverse = (array, y, x) => {
         arrayClone,
         y,
         x,
-        neighboursCue
+        neighboursCallStack
       );
       arrayClone = filteredIdentities.arrayClone;
-      neighboursCue = filteredIdentities.neighboursCueClone;
+      neighboursCallStack = filteredIdentities.neighboursCallStackClone;
 
       //  North WALL
     } else {
@@ -110,10 +110,10 @@ export const gridTraverse = (array, y, x) => {
         arrayClone,
         y,
         x,
-        neighboursCue
+        neighboursCallStack
       );
       arrayClone = filteredIdentities.arrayClone;
-      neighboursCue = filteredIdentities.neighboursCueClone;
+      neighboursCallStack = filteredIdentities.neighboursCallStackClone;
     }
     //  South Wall Section
   } else if (y === array.length - 1) {
@@ -129,10 +129,10 @@ export const gridTraverse = (array, y, x) => {
         arrayClone,
         y,
         x,
-        neighboursCue
+        neighboursCallStack
       );
       arrayClone = filteredIdentities.arrayClone;
-      neighboursCue = filteredIdentities.neighboursCueClone;
+      neighboursCallStack = filteredIdentities.neighboursCallStackClone;
 
       // South East CORNER
     } else if (x === 0) {
@@ -146,10 +146,10 @@ export const gridTraverse = (array, y, x) => {
         arrayClone,
         y,
         x,
-        neighboursCue
+        neighboursCallStack
       );
       arrayClone = filteredIdentities.arrayClone;
-      neighboursCue = filteredIdentities.neighboursCueClone;
+      neighboursCallStack = filteredIdentities.neighboursCallStackClone;
 
       //  South WALL
     } else {
@@ -163,10 +163,10 @@ export const gridTraverse = (array, y, x) => {
         arrayClone,
         y,
         x,
-        neighboursCue
+        neighboursCallStack
       );
       arrayClone = filteredIdentities.arrayClone;
-      neighboursCue = filteredIdentities.neighboursCueClone;
+      neighboursCallStack = filteredIdentities.neighboursCallStackClone;
     }
     //  East WALL ONLY
   } else if (x === array[0].length - 1) {
@@ -180,10 +180,10 @@ export const gridTraverse = (array, y, x) => {
       arrayClone,
       y,
       x,
-      neighboursCue
+      neighboursCallStack
     );
     arrayClone = filteredIdentities.arrayClone;
-    neighboursCue = filteredIdentities.neighboursCueClone;
+    neighboursCallStack = filteredIdentities.neighboursCallStackClone;
 
     //  West WALL ONLY
   } else if (x === 0) {
@@ -197,10 +197,10 @@ export const gridTraverse = (array, y, x) => {
       arrayClone,
       y,
       x,
-      neighboursCue
+      neighboursCallStack
     );
     arrayClone = filteredIdentities.arrayClone;
-    neighboursCue = filteredIdentities.neighboursCueClone;
+    neighboursCallStack = filteredIdentities.neighboursCallStackClone;
 
     // AWAY FROM WALL
   } else {
@@ -214,14 +214,14 @@ export const gridTraverse = (array, y, x) => {
       arrayClone,
       y,
       x,
-      neighboursCue
+      neighboursCallStack
     );
     arrayClone = filteredIdentities.arrayClone;
-    neighboursCue = filteredIdentities.neighboursCueClone;
+    neighboursCallStack = filteredIdentities.neighboursCallStackClone;
   }
 
-  //  Sorts blocks in neighboursCue by ascending amount of identities, i.e lower entropy
-  neighboursCue = neighboursCue.sort((a, b) => {
+  //  Sorts blocks in neighboursCallStack by ascending amount of identities, i.e lower entropy
+  neighboursCallStack = neighboursCallStack.sort((a, b) => {
     if (a.amount === b.amount) {
       return Math.floor(Math.random() * (1 - -1) + -1); // If equal randomize order
     }
@@ -235,10 +235,10 @@ export const gridTraverse = (array, y, x) => {
 
   //  TODO:
   //  Call gridTraverse for the newly selected cell if grid hasn't yet fully collapsed
-  //  Should it traverse neighboursCue instead and call all?
-  //    Recursevely that might create issues. If one cell is already empty when going back to previous cells in neighboursCue array
+  //  Should it traverse neighboursCallStack instead and call all?
+  //    Recursevely that might create issues. If one cell is already empty when going back to previous cells in neighboursCallStack array
   //   //  Lowest entropy cell x and y
-  //   const y = neighboursCue[0].y;
-  //   const x = neighboursCue[0].x;
+  //   const y = neighboursCallStack[0].y;
+  //   const x = neighboursCallStack[0].x;
   //   gridTraverse(arrayClone, y, x);
 };

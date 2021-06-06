@@ -1,7 +1,7 @@
 export default (
   arrayClone,
   { y, x, thisY, thisX },
-  neighboursCue,
+  neighboursCallStack,
   allDirections,
   direction
 ) => {
@@ -9,15 +9,17 @@ export default (
   //  Somehow soft-code amount of identities
   //  Hard coded amount of identities
   if (arrayClone[thisY][thisX].length < 4) {
-    let neighboursCueClone = JSON.parse(JSON.stringify(neighboursCue));
+    let neighboursCallStackClone = JSON.parse(
+      JSON.stringify(neighboursCallStack)
+    );
 
-    neighboursCueClone.push({
+    neighboursCallStackClone.push({
       y: allDirections(y, x)[direction].y(),
       x: allDirections(y, x)[direction].x(),
       amount: arrayClone[thisY][thisX].length,
     });
-    return neighboursCueClone;
+    return neighboursCallStackClone;
   }
 
-  return neighboursCue;
+  return neighboursCallStack;
 };
