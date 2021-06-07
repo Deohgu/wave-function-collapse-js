@@ -91,8 +91,22 @@ export const gridTraverse = (array, y, x) => {
   });
 
   console.log("arrayClone at end: ", arrayClone);
-  // if ("Grid has fully collapsed") {
-  return arrayClone;
+  console.log("neighbour Call Stack at end: ", neighboursCallStack);
+  console.log("------------------");
+  console.log("Y: ", y);
+  console.log("X: ", x);
+  console.log("------------------");
+
+  //  FIXME:
+  //  Why is the entire grid collapsing to 0 identities?
+  //    This only allows it to run twice..
+  //    What is happening?
+  if (x >= 1 || y >= 1) {
+    return arrayClone;
+  }
+
+  // if (neighboursCallStack.length === 0) {
+  //   return arrayClone;
   // }
 
   //  TODO:
@@ -100,7 +114,12 @@ export const gridTraverse = (array, y, x) => {
   //  Should it traverse neighboursCallStack instead and call all?
   //    Recursevely that might create issues. If one cell is already empty when going back to previous cells in neighboursCallStack array
   //   //  Lowest entropy cell x and y
-  //   const y = neighboursCallStack[0].y;
-  //   const x = neighboursCallStack[0].x;
-  //   gridTraverse(arrayClone, y, x);
+
+  neighboursCallStack.forEach((stackItem) => {
+    console.log("stackItem: ", stackItem);
+    const stackItemY = stackItem.y;
+    const stackItemX = stackItem.x;
+
+    gridTraverse(arrayClone, stackItemY, stackItemX);
+  });
 };
