@@ -8,7 +8,11 @@ export default (
   //  TODO:
   //  Somehow soft-code amount of identities
   //  Hard coded amount of identities
-  if (arrayClone[currY][currX].length < 4) {
+
+  if (
+    arrayClone[currY][currX].length > 1 &&
+    arrayClone[currY][currX].length < 4
+  ) {
     let neighboursCallStackClone = JSON.parse(
       JSON.stringify(neighboursCallStack)
     );
