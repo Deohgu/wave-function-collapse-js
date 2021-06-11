@@ -52,7 +52,7 @@ export const gridTraverse = (array, y, x) => {
   let neighboursCallStack = [];
 
   //  Of the ones still available select an identity at random and remove the others
-  arrayClone = picksRandomIdentity(array, coords);
+  arrayClone = picksRandomIdentity(arrayClone, coords);
 
   conditionalDirections(coords, array).forEach((isCorrectGridArea, index) => {
     if (isCorrectGridArea) {
@@ -101,12 +101,8 @@ export const gridTraverse = (array, y, x) => {
   //  Why is the entire grid collapsing to 0 identities?
   //    This only allows it to run twice..
   //    What is happening?
-  if (x >= 1 || y >= 1) {
-    return arrayClone;
-  }
-
-  // if (neighboursCallStack.length === 0) {
-  //   return arrayClone;
+  // if (x >= 1 || y >= 1) {
+  return arrayClone;
   // }
 
   //  TODO:
@@ -115,11 +111,25 @@ export const gridTraverse = (array, y, x) => {
   //    Recursevely that might create issues. If one cell is already empty when going back to previous cells in neighboursCallStack array
   //   //  Lowest entropy cell x and y
 
-  neighboursCallStack.forEach((stackItem) => {
-    console.log("stackItem: ", stackItem);
-    const stackItemY = stackItem.y;
-    const stackItemX = stackItem.x;
+  // neighboursCallStack.forEach((stackItem) => {
+  //   console.log("stackItem: ", stackItem);
+  //   const stackItemY = stackItem.y;
+  //   const stackItemX = stackItem.x;
 
-    gridTraverse(arrayClone, stackItemY, stackItemX);
-  });
+  //   gridTraverse(arrayClone, stackItemY, stackItemX);
+  // });
+
+  //  Correct approach due to being able to return from loop
+  // for (let i = 0; i < neighboursCallStack.length; i++) {
+  //   if (neighboursCallStack.length === 0) {
+  //     return arrayClone;
+  //   }
+
+  //   console.log("stackItem: ", neighboursCallStack[i]);
+  //   const stackItemY = neighboursCallStack[i].y;
+  //   const stackItemX = neighboursCallStack[i].x;
+
+  //   gridTraverse(arrayClone, stackItemY, stackItemX);
+  //   neighboursCallStack.splice(i, 1);
+  // }
 };
