@@ -36,7 +36,12 @@ import filterIdentities from "@/utils/traverse/filterIdentities";
 import addsModifiedBlock from "@/utils/traverse/addsModifiedBlock";
 import picksRandomIdentity from "./traverse/picksRandomIdentity";
 
+let lastArrayupdatedOutsideFunction = [];
+
 export const gridTraverse = (array, y, x) => {
+  console.log("--START------------------------------------------");
+  console.log("array: ", array);
+
   let arrayClone = JSON.parse(JSON.stringify(array));
 
   const coords = {
@@ -90,19 +95,19 @@ export const gridTraverse = (array, y, x) => {
     return a.amount - b.amount;
   });
 
-  console.log("arrayClone at end: ", arrayClone);
-  console.log("neighbour Call Stack at end: ", neighboursCallStack);
-  console.log("------------------");
-  console.log("Y: ", y);
-  console.log("X: ", x);
-  console.log("------------------");
+  // console.log("arrayClone at end: ", arrayClone);
+  // console.log("neighbour Call Stack at end: ", neighboursCallStack);
+  // console.log("------------------");
+  // console.log("Y: ", y);
+  // console.log("X: ", x);
+  // console.log("------------------");
 
   //  FIXME:
   //  Why is the entire grid collapsing to 0 identities?
   //    This only allows it to run twice..
   //    What is happening?
   // if (x >= 1 || y >= 1) {
-  return arrayClone;
+  // return arrayClone;
   // }
 
   //  TODO:
@@ -116,20 +121,29 @@ export const gridTraverse = (array, y, x) => {
   //   const stackItemY = stackItem.y;
   //   const stackItemX = stackItem.x;
 
-  //   gridTraverse(arrayClone, stackItemY, stackItemX);
+  //   lastArrayupdatedOutsideFunction = arrayClone;
+  //   if (arrayClone[stackItemY][stackItemX].length > 1) {
+  //     gridTraverse(arrayClone, stackItemY, stackItemX);
+  //   }
   // });
 
   //  Correct approach due to being able to return from loop
-  // for (let i = 0; i < neighboursCallStack.length; i++) {
-  //   if (neighboursCallStack.length === 0) {
-  //     return arrayClone;
-  //   }
+  // With the loop the grid returns undefined again. because the return probably only exists the loop instead of actually returning the result, thus in Cell the result is undefined
+  for (let i = 0, n = neighboursCallStack.length; i < n; i++) {
+    console.log("current: ", y, x);
+    console.log("neighbours: ", neighboursCallStack);
+    // if (neighboursCallStack.length === 0) {
+    //   console.log("RETURNING arrayClone: ", arrayClone);
+    //   const arrayCloneClone = JSON.parse(JSON.stringify(arrayClone));
+    //   return arrayCloneClone;
+    // }
+    console.log("stackItem: ", neighboursCallStack[0]);
+    const stackItemY = neighboursCallStack[0].y;
+    const stackItemX = neighboursCallStack[0].x;
 
-  //   console.log("stackItem: ", neighboursCallStack[i]);
-  //   const stackItemY = neighboursCallStack[i].y;
-  //   const stackItemX = neighboursCallStack[i].x;
-
-  //   gridTraverse(arrayClone, stackItemY, stackItemX);
-  //   neighboursCallStack.splice(i, 1);
-  // }
+    // neighboursCallStack.splice(0, 1);
+    lastArrayupdatedOutsideFunction = arrayClone;
+    gridTraverse(arrayClone, stackItemY, stackItemX);
+  }
+  return lastArrayupdatedOutsideFunction;
 };
