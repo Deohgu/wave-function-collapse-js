@@ -129,6 +129,7 @@ export const gridTraverse = (array, y, x) => {
 
   //  Correct approach due to being able to return from loop
   // With the loop the grid returns undefined again. because the return probably only exists the loop instead of actually returning the result, thus in Cell the result is undefined
+  lastArrayupdatedOutsideFunction = arrayClone;
   for (let i = 0, n = neighboursCallStack.length; i < n; i++) {
     console.log("current: ", y, x);
     console.log("neighbours: ", neighboursCallStack);
@@ -142,7 +143,6 @@ export const gridTraverse = (array, y, x) => {
     const stackItemX = neighboursCallStack[0].x;
 
     // neighboursCallStack.splice(0, 1);
-    lastArrayupdatedOutsideFunction = arrayClone;
     gridTraverse(arrayClone, stackItemY, stackItemX);
   }
   return lastArrayupdatedOutsideFunction;
