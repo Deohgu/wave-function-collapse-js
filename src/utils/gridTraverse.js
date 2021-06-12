@@ -116,34 +116,32 @@ export const gridTraverse = (array, y, x) => {
   //    Recursevely that might create issues. If one cell is already empty when going back to previous cells in neighboursCallStack array
   //   //  Lowest entropy cell x and y
 
-  // neighboursCallStack.forEach((stackItem) => {
-  //   console.log("stackItem: ", stackItem);
-  //   const stackItemY = stackItem.y;
-  //   const stackItemX = stackItem.x;
+  lastArrayupdatedOutsideFunction = arrayClone;
+  neighboursCallStack.forEach((stackItem) => {
+    console.log("stackItem: ", stackItem);
+    const stackItemY = stackItem.y;
+    const stackItemX = stackItem.x;
 
-  //   lastArrayupdatedOutsideFunction = arrayClone;
-  //   if (arrayClone[stackItemY][stackItemX].length > 1) {
-  //     gridTraverse(arrayClone, stackItemY, stackItemX);
-  //   }
-  // });
+    lastArrayupdatedOutsideFunction = arrayClone;
+    if (arrayClone[stackItemY][stackItemX].length > 1) {
+      gridTraverse(arrayClone, stackItemY, stackItemX);
+    }
+    console.log("LOG AFTER GRIDTRAVERSE");
+  });
 
   //  Correct approach due to being able to return from loop
   // With the loop the grid returns undefined again. because the return probably only exists the loop instead of actually returning the result, thus in Cell the result is undefined
-  lastArrayupdatedOutsideFunction = arrayClone;
-  for (let i = 0, n = neighboursCallStack.length; i < n; i++) {
-    console.log("current: ", y, x);
-    console.log("neighbours: ", neighboursCallStack);
-    // if (neighboursCallStack.length === 0) {
-    //   console.log("RETURNING arrayClone: ", arrayClone);
-    //   const arrayCloneClone = JSON.parse(JSON.stringify(arrayClone));
-    //   return arrayCloneClone;
-    // }
-    console.log("stackItem: ", neighboursCallStack[0]);
-    const stackItemY = neighboursCallStack[0].y;
-    const stackItemX = neighboursCallStack[0].x;
+  // for (let i = 0, n = neighboursCallStack.length; i < n; i++) {
+  //   console.log("current: ", y, x);
+  //   console.log("neighbours: ", neighboursCallStack);
+  //   // if (neighboursCallStack.length === 0) {
+  //   //   console.log("RETURNING arrayClone: ", arrayClone);
+  //   //   const arrayCloneClone = JSON.parse(JSON.stringify(arrayClone));
+  //   //   return arrayCloneClone;
+  //   // }
 
-    // neighboursCallStack.splice(0, 1);
-    gridTraverse(arrayClone, stackItemY, stackItemX);
-  }
+  //   // neighboursCallStack.splice(0, 1);
+  //   gridTraverse(arrayClone, stackItemY, stackItemX);
+  // }
   return lastArrayupdatedOutsideFunction;
 };
