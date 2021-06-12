@@ -57,6 +57,7 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
+  border: 1px solid hsl(0, 0%, 25%);
   margin: 2px;
   width: 100px;
   height: 100px;
