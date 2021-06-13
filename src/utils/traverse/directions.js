@@ -46,7 +46,7 @@ export const validSearchDirections = {
   noWall: ["north", "east", "south", "west"],
 };
 
-export const conditionalDirections = ({ y, x }, array) => [
+export const conditionalDirections = (y, x, array) => [
   y === 0 && x === array[0].length - 1, // North East
   y === 0 && x === 0, // North west
   y === 0 && x !== array[0].length - 1 && x !== 0, // North
