@@ -1,29 +1,20 @@
-export default (
-  arrayClone,
-  { y, x, currY, currX },
-  neighboursCallStack,
-  allDirections,
-  direction
-) => {
+export default (arrayClone, filteredCellsCoordsArray) => {
   //  TODO:
   //  Somehow soft-code amount of identities
   //  Hard coded amount of identities
+  let neighboursCallStack = [];
 
-  if (
-    arrayClone[currY][currX].length > 1 &&
-    arrayClone[currY][currX].length < 4
-  ) {
-    let neighboursCallStackClone = JSON.parse(
-      JSON.stringify(neighboursCallStack)
-    );
+  filteredCellsCoordsArray.forEach((coords) => {
+    const currentClonedCell = arrayClone[coords.y][coords.x];
 
-    neighboursCallStackClone.push({
-      y: allDirections(y, x)[direction].y(),
-      x: allDirections(y, x)[direction].x(),
-      amount: arrayClone[currY][currX].length,
-    });
-    return neighboursCallStackClone;
-  }
-
+    if (currentClonedCell.length > 1 && currentClonedCell.length < 4) {
+      neighboursCallStack.push({
+        y: coords.y,
+        x: coords.x,
+        amount: currentClonedCell.length,
+      });
+      return neighboursCallStack;
+    }
+  });
   return neighboursCallStack;
 };
