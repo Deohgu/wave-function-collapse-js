@@ -18,10 +18,10 @@ export default {
       rules: {
         //  Will need to be refactored to a Standardised way
         //    Have it in a way that conditionally it can be piped to another loop in an if statement
-        north: ["water", "coast"],
-        east: ["water", "coast"],
-        south: ["water", "coast"],
-        west: ["water", "coast"],
+        north: ["water", "coast", "land"],
+        east: ["water", "coast", "land"],
+        south: ["water", "coast", "land"],
+        west: ["water", "coast", "land"],
       },
       symbol: "◢",
     },
