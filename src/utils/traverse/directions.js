@@ -1,3 +1,7 @@
+//  TODO:
+//    Change this to one object, validSearchDirections and conditionalDirections should be part of the main prop
+//      i.e North, North East, East
+//    If allDirections also checked diagonally, it could simply be an object with all directions and then each contain props for calcCoords, validSearchDirections and isCurrentDirection
 export const allDirections = (y, x) => ({
   north: {
     y() {
@@ -57,3 +61,16 @@ export const conditionalDirections = (y, x, array) => [
   x === 0 && y !== 0 && y !== array.length - 1, // West
   y !== 0 && y !== array.length - 1 && x !== array[0].length - 1 && x !== 0, // Away from wall
 ];
+
+export const whichDirection = (originalY, originalX, y, x) => {
+  const currentAllDirection = allDirections(originalY, originalX);
+  let directionToReturn = "";
+  for (const direction in currentAllDirection) {
+    if (
+      currentAllDirection[direction].y() === y &&
+      currentAllDirection[direction].x() === x
+    )
+      return (directionToReturn = direction);
+  }
+  return directionToReturn;
+};
