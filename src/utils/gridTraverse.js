@@ -10,6 +10,10 @@
 //      Function always checks neighbourStack[0] argument
 //      Consequently creates a clone without neighbourStack[0]
 //        And adds to it new potential neighbours
+//    Add Cells to coordsCallStack as array blocks
+//      Then sort that array block
+//      Then pass flattened array
+//    Check why coordsCallStack does not accumulate more index each time
 
 /////////////
 //  Calls gridTraverse to check neighbours
@@ -72,14 +76,15 @@ export const gridTraverse = (array, coordsCallStack) => {
       );
 
       //  If at least one identity was split from cell being checked, add to stack
-      coordsCallStackClone = addsModifiedBlock(
-        arrayClone,
-        filteredCellsCoordsArray
+      coordsCallStackClone.push(
+        addsModifiedBlock(arrayClone, filteredCellsCoordsArray)
       );
     }
 
     //  Sorts cells in coordsCallStackClone by ascending amount of identities, i.e lower entropy
-    coordsCallStackClone = coordsCallStackClone.sort((a, b) => {
+    coordsCallStackClone = coordsCallStackClone[
+      coordsCallStackClone.length - 1
+    ].sort((a, b) => {
       if (a.amount === b.amount) {
         return Math.floor(Math.random() * (1 - -1) + -1); // If equal randomize order
       }
@@ -97,16 +102,12 @@ export const gridTraverse = (array, coordsCallStack) => {
     console.log("neighbours Call Stack: ", coordsCallStackClone);
 
     lastArrayUpdatedOutsideFunction = arrayClone;
-    // coordsCallStackClone.forEach((stackItem) => {
     // console.log("neighbourstack", JSON.stringify(stackItem));
 
     lastArrayUpdatedOutsideFunction = arrayClone;
-    // if (arrayClone[stackItemY][stackItemX].length > 1) {
-    // console.log("stackItem: ", stackItem);
-    gridTraverse(arrayClone, coordsCallStackClone.slice(1));
-    // }
+    console.log("coordsStack flattened: ", coordsCallStackClone.flat());
+    gridTraverse(arrayClone, coordsCallStackClone.flat().slice(1));
     // console.log("LOG AFTER GRIDTRAVERSE");
-    // });
   }
   const t1Root = performance.now();
   console.count("Ran to the bottom");
