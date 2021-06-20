@@ -4,7 +4,7 @@ import {
   conditionalDirections,
 } from "@/utils/traverse/directions";
 
-export default (array, y, x) => {
+export default (array, { y, x }) => {
   const filteredCellsCoordsArray = [];
 
   conditionalDirections(y, x, array).forEach((isCorrectGridArea, index) => {

@@ -1,6 +1,6 @@
 import { whichDirection } from "@/utils/traverse/directions";
 
-export default (filteredCellsCoordsArray, array, y, x) => {
+export default (filteredCellsCoordsArray, array, { y, x }) => {
   let arrayClone = JSON.parse(JSON.stringify(array));
 
   filteredCellsCoordsArray.forEach((coords) => {
