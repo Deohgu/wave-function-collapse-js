@@ -1,11 +1,15 @@
-// CURRENT:
-//  TODO:
-// Define a way to traverse the grid and check based on the rules
-
 //  TODO:
 //  Split the function into smaller functions
 //    read up on functional programming and refactoring
 //    In essence all the complex code will be abstracted with self explanatory named functions
+
+// CURRENT:
+//  TODO:
+//    Improving performance idea:
+//      Neighbour array to be passed in the parameters
+//      Function always checks neighbourStack[0] argument
+//      Consequently creates a clone without neighbourStack[0]
+//        And adds to it new potential neighbours
 
 /////////////
 //  Calls gridTraverse to check neighbours
@@ -53,10 +57,9 @@ export const gridTraverse = (array, y, x) => {
   arrayClone = picksRandomIdentity(arrayClone, coords);
 
   //  TODO:
-  //    CURRENT:
-  //      Should this return the entire Cell and in the end just have the returned array copy these?
-  //      Or the y, x?
-  //        Going to try this first
+  //    Should this return the entire Cell and in the end just have the returned array copy these?
+  //    Or the y, x?
+  //      Going to try this first
   const filteredCellsCoordsArray = filterCellsToCheck(arrayClone, y, x);
 
   if (filteredCellsCoordsArray.length > 0) {
@@ -84,12 +87,6 @@ export const gridTraverse = (array, y, x) => {
   // console.log("Y: ", y);
   // console.log("X: ", x);
   // console.log("------------------");
-
-  //  TODO:
-  //  Call gridTraverse for the newly selected cell if grid hasn't yet fully collapsed
-  //  Should it traverse neighboursCallStack instead and call all?
-  //    Recursevely that might create issues. If one cell is already empty when going back to previous cells in neighboursCallStack array
-  //   //  Lowest entropy cell x and y
 
   // console.log("filteredCellsCoordsArray: ", filteredCellsCoordsArray);
   console.log("neighbours Call Stack: ", neighboursCallStack);

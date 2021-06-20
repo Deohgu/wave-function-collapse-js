@@ -2,6 +2,8 @@
 //    Change this to one object, validSearchDirections and conditionalDirections should be part of the main prop
 //      i.e North, North East, East
 //    If allDirections also checked diagonally, it could simply be an object with all directions and then each contain props for calcCoords, validSearchDirections and isCurrentDirection
+//    To consider:
+//      When importing something large does it affect performance or only affects what is actually used from the import?
 export const allDirections = (y, x) => ({
   north: {
     y() {
