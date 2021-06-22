@@ -1,14 +1,3 @@
-//  TODO:
-//  Split the function into smaller functions
-//    read up on functional programming and refactoring
-//    In essence all the complex code will be abstracted with self explanatory named functions
-
-//  allDirections:
-//    If not against a wall
-//    x and y are equal to the index in the loops which determines the current cell
-//      e.g: array[allDirections[east].y()][allDirections[east].x()]
-//      Allows usage with multiple arrays
-
 import filterIdentities from "@/utils/traverse/filterIdentities";
 import modifiedCellsArray from "@/utils/traverse/modifiedCellsArray";
 import picksRandomIdentity from "@/utils/traverse/picksRandomIdentity";
