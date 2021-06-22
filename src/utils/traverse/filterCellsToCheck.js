@@ -15,13 +15,15 @@ export default (array, { y, x }) => {
 
       // console.log(directionNames[index]);
 
+      console.log("currValidSearchDirections:", currValidSearchDirections);
+
       //  Checks valid neighbouring cells
       currValidSearchDirections.forEach((direction) => {
         const currY = allDirections(y, x)[direction].y();
         const currX = allDirections(y, x)[direction].x();
         const currCell = array[currY][currX];
 
-        if (currCell.length > 1) {
+        if (currCell.length === 4) {
           filteredCellsCoordsArray.push({ y: currY, x: currX });
         }
       });

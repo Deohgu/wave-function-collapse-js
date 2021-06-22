@@ -44,10 +44,12 @@ export const gridTraverse = (array, coordsCallStack) => {
   console.log("--START------------------------------------------");
   if (coordsCallStack.length > 0) {
     // console.log("array: ", array);
-    console.log(
-      "Current block",
-      array[coordsCallStack[0].y][coordsCallStack[0].x]
-    );
+    // console.log(
+    //   "Current block",
+    //   array[coordsCallStack[0].y][coordsCallStack[0].x]
+    // );
+
+    console.log("current coords:", coordsCallStack[0].y, coordsCallStack[0].x);
 
     let arrayClone = JSON.parse(JSON.stringify(array));
     //  Cells that had identities split from it -> [{y:0, x:0, amount: 2}, ...]
@@ -76,20 +78,34 @@ export const gridTraverse = (array, coordsCallStack) => {
       );
 
       //  If at least one identity was split from cell being checked, add to stack
-      coordsCallStackClone.push(
-        addsModifiedBlock(arrayClone, filteredCellsCoordsArray)
-      );
-    }
+      coordsCallStackClone = [
+        addsModifiedBlock(arrayClone, filteredCellsCoordsArray),
+      ].concat(coordsCallStackClone);
+      console.log("coordsCallStackClone after concat:", coordsCallStackClone);
 
-    //  Sorts cells in coordsCallStackClone by ascending amount of identities, i.e lower entropy
-    coordsCallStackClone = coordsCallStackClone[
-      coordsCallStackClone.length - 1
-    ].sort((a, b) => {
-      if (a.amount === b.amount) {
-        return Math.floor(Math.random() * (1 - -1) + -1); // If equal randomize order
-      }
-      return a.amount - b.amount;
-    });
+      //  Sorts cells in coordsCallStackClone by ascending amount of identities, i.e lower entropy
+      console.log("before sort", coordsCallStackClone);
+      coordsCallStackClone[0] = coordsCallStackClone[0].sort((a, b) => {
+        if (a.amount === b.amount) {
+          return Math.floor(Math.random() * (1 - -1) + -1); // If equal randomize order
+        }
+        return a.amount - b.amount;
+      });
+      console.log("after sort", coordsCallStackClone);
+    }
+    if (Array.isArray(coordsCallStackClone[0])) {
+      coordsCallStackClone = [
+        coordsCallStackClone[0],
+        ...coordsCallStackClone.slice(2),
+      ];
+      console.log(
+        "coordsCallStackClone after removing [1]",
+        coordsCallStackClone
+      );
+      coordsCallStackClone = coordsCallStackClone.flat();
+    } else {
+      coordsCallStackClone.shift();
+    }
 
     // console.log("arrayClone at end: ", arrayClone);
     // console.log("neighbour Call Stack at end: ", coordsCallStackClone);
@@ -101,12 +117,18 @@ export const gridTraverse = (array, coordsCallStack) => {
     // console.log("filteredCellsCoordsArray: ", filteredCellsCoordsArray);
     console.log("neighbours Call Stack: ", coordsCallStackClone);
 
-    lastArrayUpdatedOutsideFunction = arrayClone;
+    // lastArrayUpdatedOutsideFunction = arrayClone;
     // console.log("neighbourstack", JSON.stringify(stackItem));
 
     lastArrayUpdatedOutsideFunction = arrayClone;
-    console.log("coordsStack flattened: ", coordsCallStackClone.flat());
-    gridTraverse(arrayClone, coordsCallStackClone.flat().slice(1));
+    // console.log("coordsStack flattened: ", coordsCallStackClone.flat());
+
+    //  TODO:
+    //    Does not need all of this code, a simple conditional to not run when !coordsCallStack[0].amount
+    //      Or find a way to not add it at all..
+
+    gridTraverse(arrayClone, coordsCallStackClone);
+
     // console.log("LOG AFTER GRIDTRAVERSE");
   }
   const t1Root = performance.now();
