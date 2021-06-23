@@ -1,3 +1,7 @@
+//  CURRENT:
+//    TODO:
+//      Reuse code in filterIdentities to check the ruleset of surrounding neighbours to create an array of the valid identities to pick from
+
 export default (array, { y, x }) => {
   let arrayClone = JSON.parse(JSON.stringify(array));
 
