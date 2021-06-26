@@ -45,7 +45,7 @@ export const gridTraverse = (array, coordsCallStack) => {
 
     updatedArray = arrayClone;
 
-    gridTraverse(arrayClone, coordsCallStackClone);
+    // gridTraverse(arrayClone, coordsCallStackClone);
   }
   // const t1Root = performance.now();
   // console.count("Current run:");
