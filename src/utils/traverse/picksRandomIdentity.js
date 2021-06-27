@@ -1,5 +1,4 @@
-//  CURRENT:
-//    TODO:
+//  HOW IT WORKS:
 //      Reuse code in filterIdentities to check the ruleset of surrounding neighbours to create an array of the valid identities to pick from
 //  Run a forEach on eachCell
 //  Access the rules by the right direction and add them to an array
@@ -12,17 +11,16 @@
 //      splice that one
 
 //  CURRENT:
-//    validIdentities are added based on valid identities in all the neighbouring rules
-//      But in reality it shouldn't be defined by all
-//        If an identity only allows 2 identities but another allows 4
-//        Then we can not add the 4 but the ones in the common with all!
-//          ie: One allows water and coast, another coast and trees
-//            Only coast can be passed.
-//  CURRENT:
-//    is it possible for surrounding Cell to no not have a single identity in common???
-//      Unsure for now, but found an error.
-//      First click should always contain the four identities because they are all full.
-//      Check code to see why this isn't so.
+//   If an identity only allows 2 identities but another allows 4
+//     Then we can not add the 4 but the ones in the common with all!
+//     ie: One allows water and coast, another coast and trees
+//       Only coast can be passed.
+
+//  TODO:
+//    Randomly picked identity must exist within current!
+//      If current has had identities removed from itself due to a neighbour running filterIdenities
+//      The randomValidIndentityIndex might not be valid to remove..
+//  TASK: Only pick identities that current Cell contains.
 
 import {
   allDirections,
@@ -44,7 +42,7 @@ export default (array, { y, x }) => {
         validSearchDirections[directionNames[index]];
 
       let ranOnce = false;
-      let prevArr = [];
+      // let prevArr = [];
       let identitiesInCommon = [];
       let identitiesInCommonTwo = [];
 
@@ -58,35 +56,41 @@ export default (array, { y, x }) => {
         const currX = allDirections(y, x)[direction].x();
         const currCell = array[currY][currX];
 
-        //  TODO:
-        //    In first click identitiesInCommon and identitiesInCommonTwo
-        //      Should both contain all the fours identities
-        //  vvvvvvvvvvvvvvvvvvvvvvv
-
+        //  Improve algorithm by creating an array with the identities of the original Cell
+        //    arrayClone[y][x]Ids = ["water", "coast", "land"]
+        //    Then bellow simply run indexOf instead of some
         if (ranOnce === false) {
           ranOnce = true;
-        } else if (identitiesInCommon.length === 0) {
-          currCell.forEach((idInCurr) => {
-            const indexIfEqual = prevArr.findIndex(
-              (prevCellId) => idInCurr[0] === prevCellId[0]
-            );
 
-            if (indexIfEqual !== -1) {
-              identitiesInCommon.push(prevArr[indexIfEqual][0]);
+          currCell.forEach((idInCurr) => {
+            if (
+              arrayClone[y][x].some(
+                (idInOriginal) => idInOriginal[0] === idInCurr[0]
+              )
+            ) {
+              identitiesInCommon.push(idInCurr[0]);
             }
           });
         } else {
           currCell.forEach((idInCurr) => {
-            const indexIfEqual = identitiesInCommon.findIndex(
-              (idInCommonId) => idInCurr[0] === idInCommonId
-            );
+            if (
+              arrayClone[y][x].some(
+                (idInOriginal) => idInOriginal[0] === idInCurr[0]
+              )
+            ) {
+              const indexIfEqual = identitiesInCommon.findIndex(
+                (idInCommonId) => idInCurr[0] === idInCommonId
+              );
 
-            if (indexIfEqual !== -1) {
-              identitiesInCommonTwo.push(identitiesInCommon[indexIfEqual]);
+              // console.log("indexIfEqual in else:", indexIfEqual);
+
+              if (indexIfEqual !== -1) {
+                identitiesInCommonTwo.push(identitiesInCommon[indexIfEqual]);
+              }
             }
           });
         }
-        prevArr = currCell;
+        // prevArr = currCell;
 
         console.log("identitiesInCommon", identitiesInCommon);
         console.log("identitiesInCommonTWO", identitiesInCommonTwo);
@@ -123,23 +127,43 @@ export default (array, { y, x }) => {
         // const randomValidIndentityIndex = Math.floor(
         //   Math.random() * validIdentitiesInCurrent.length
         // );
-        const randomValidIndentityIndex = Math.floor(
-          Math.random() * identitiesInCommonTwo.length
-        );
+        // const randomValidIndentityIndex = Math.floor(
+        //   Math.random() * identitiesInCommonTwo.length
+        //     ? identitiesInCommonTwo.length
+        //     : identitiesInCommon.length
+        // );
+        let randomValidIndentityIndex = 0;
+        if (identitiesInCommonTwo.length) {
+          randomValidIndentityIndex = Math.floor(
+            Math.random() * identitiesInCommonTwo.length
+          );
+
+          pickedIdentityIndex = arrayClone[y][x].findIndex((identity) => {
+            return (
+              identity[0] === identitiesInCommonTwo[randomValidIndentityIndex]
+            );
+          });
+        } else {
+          randomValidIndentityIndex = Math.floor(
+            Math.random() * identitiesInCommon.length
+          );
+
+          pickedIdentityIndex = arrayClone[y][x].findIndex((identity) => {
+            return (
+              identity[0] === identitiesInCommon[randomValidIndentityIndex]
+            );
+          });
+        }
 
         // pickedIdentityIndex = arrayClone[y][x].findIndex((identity) => {
         //   return (
         //     identity[0] === validIdentitiesInCurrent[randomValidIndentityIndex]
         //   );
         // });
-        pickedIdentityIndex = arrayClone[y][x].findIndex((identity) => {
-          return (
-            identity[0] === identitiesInCommonTwo[randomValidIndentityIndex]
-          );
-        });
 
         console.log("allowedIdentities", allowedIdentities);
         console.log("validIdentitiesInCurrent", validIdentitiesInCurrent);
+        console.log("randomValidIndentityIndex", randomValidIndentityIndex);
         console.log("pickedIdentityIndex", pickedIdentityIndex);
 
         arrayClone[y][x] = arrayClone[y][x].slice(
