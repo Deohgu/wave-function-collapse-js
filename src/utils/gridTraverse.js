@@ -9,9 +9,13 @@ let updatedArray = [];
 
 export const gridTraverse = (array, coordsCallStack) => {
   // const t0Root = performance.now();
-  // console.log("--START------------------------------------------");
+  console.log("--START------------------------------------------");
   if (coordsCallStack.length > 0) {
-    console.log(coordsCallStack[0].y, coordsCallStack[0].x);
+    console.log(
+      "ORIGINAL CELL array:",
+      array[coordsCallStack[0].y][coordsCallStack[0].x]
+    );
+    console.log("ORIGINAL CELL:", coordsCallStack[0].y, coordsCallStack[0].x);
     let arrayClone = JSON.parse(JSON.stringify(array));
     let coordsCallStackClone = JSON.parse(JSON.stringify(coordsCallStack));
 

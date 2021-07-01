@@ -22,6 +22,10 @@
 //      The randomValidIndentityIndex might not be valid to remove..
 //  TASK: Only pick identities that current Cell contains.
 
+//  TODO:
+//    Another thing, the first in common identities with the currCell get tossed in the initial array
+//    Looking at the console.log, not all the in common identities get passed
+
 import {
   allDirections,
   validSearchDirections,
@@ -56,6 +60,10 @@ export default (array, { y, x }) => {
         const currX = allDirections(y, x)[direction].x();
         const currCell = array[currY][currX];
 
+        console.log("CELL:", currY, currX);
+        console.log("direction:", direction);
+        console.log("currCell:", currCell);
+
         //  Improve algorithm by creating an array with the identities of the original Cell
         //    arrayClone[y][x]Ids = ["water", "coast", "land"]
         //    Then bellow simply run indexOf instead of some
@@ -63,33 +71,37 @@ export default (array, { y, x }) => {
           ranOnce = true;
 
           currCell.forEach((idInCurr) => {
-            if (
-              arrayClone[y][x].some(
-                (idInOriginal) => idInOriginal[0] === idInCurr[0]
-              )
-            ) {
-              identitiesInCommon.push(idInCurr[0]);
-            }
+            //  Trying to check if id is the ruleset
+            //    Convert to a variable the original index to use underneath
+            console.log("idInCurr:", idInCurr);
+            console.log("---identitiesInCommon---");
+            arrayClone[y][x].forEach((idInOriginal) => {
+              console.log("idInOriginal:", idInOriginal[0]);
+              if (idInCurr[1].rules[direction].indexOf(idInOriginal[0])) {
+                identitiesInCommon.push(idInOriginal[0]);
+              }
+            });
           });
         } else {
           currCell.forEach((idInCurr) => {
-            if (
-              arrayClone[y][x].some(
-                (idInOriginal) => idInOriginal[0] === idInCurr[0]
-              )
-            ) {
-              const indexIfEqual = identitiesInCommon.findIndex(
-                (idInCommonId) => idInCurr[0] === idInCommonId
-              );
+            console.log("---identitiesInCommonTwo---");
+            arrayClone[y][x].forEach((idInOriginal) => {
+              console.log("idInOriginal:", idInOriginal[0]);
+              if (idInCurr[1].rules[direction].indexOf(idInOriginal[0])) {
+                const indexIfEqual = identitiesInCommon.findIndex(
+                  (idInCommonId) => idInCurr[0] === idInCommonId
+                );
 
-              // console.log("indexIfEqual in else:", indexIfEqual);
-
-              if (indexIfEqual !== -1) {
-                identitiesInCommonTwo.push(identitiesInCommon[indexIfEqual]);
+                if (indexIfEqual !== -1) {
+                  identitiesInCommonTwo.push(idInCurr[0]);
+                }
               }
-            }
+            });
           });
         }
+        //  This was causing some of them to not be called
+        //    probably because it was skipping the first if statement when coming back here?
+        ranOnce = false;
         // prevArr = currCell;
 
         console.log("identitiesInCommon", identitiesInCommon);
