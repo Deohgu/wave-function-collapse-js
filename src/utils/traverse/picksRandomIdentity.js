@@ -33,11 +33,12 @@ export default (array, { y, x }) => {
             // console.log("idInNeighbour:", idInNeighbour);
             // console.log("---identitiesInCommon---");
             arrayClone[y][x].forEach((idInOriginal) => {
+              const currNeighbourRules = idInNeighbour[1].rules[direction];
+              const currIdIndexInNeighbourRules = currNeighbourRules.indexOf(
+                idInOriginal[0]
+              );
               // console.log("idInOriginal:", idInOriginal[0]);
-              if (
-                idInNeighbour[1].rules[direction].indexOf(idInOriginal[0]) !==
-                -1
-              ) {
+              if (currIdIndexInNeighbourRules !== -1) {
                 identitiesInCommon.push(idInOriginal[0]);
               }
             });
@@ -46,23 +47,25 @@ export default (array, { y, x }) => {
           currCell.forEach((idInNeighbour) => {
             // console.log("---identitiesInCommonTwo---");
             arrayClone[y][x].forEach((idInOriginal) => {
+              const currNeighbourRules = idInNeighbour[1].rules[direction];
+              const currIdIndexInNeighbourRules = currNeighbourRules.indexOf(
+                idInOriginal[0]
+              );
+
               // console.log("idInOriginal:", idInOriginal[0]);
               // console.log(
               //   "complex index of:",
               //   identitiesInCommon.indexOf(
-              //     idInNeighbour[1].rules[direction][
-              //       idInNeighbour[1].rules[direction].indexOf(idInOriginal[0])
+              //     currNeighbourRules[
+              //       currIdIndexInNeighbourRules
               //     ]
               //   )
               // );
               if (
-                idInNeighbour[1].rules[direction].indexOf(idInOriginal[0]) !==
-                  -1 &&
+                currIdIndexInNeighbourRules !== -1 &&
                 // If identities in common has the identity that the original cell has in common with the cells
                 identitiesInCommon.indexOf(
-                  idInNeighbour[1].rules[direction][
-                    idInNeighbour[1].rules[direction].indexOf(idInOriginal[0])
-                  ]
+                  currNeighbourRules[currIdIndexInNeighbourRules]
                 ) !== -1
               ) {
                 identitiesInCommonTwo.push(idInOriginal[0]);
