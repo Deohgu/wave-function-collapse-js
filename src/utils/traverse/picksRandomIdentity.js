@@ -50,8 +50,6 @@ export default (array, { y, x }) => {
       const currValidSearchDirections =
         validSearchDirections[directionNames[index]];
 
-      let ranOnce = false;
-      // let prevArr = [];
       let identitiesInCommon = [];
       let identitiesInCommonTwo = [];
 
@@ -72,9 +70,7 @@ export default (array, { y, x }) => {
         //  Improve algorithm by creating an array with the identities of the original Cell
         //    arrayClone[y][x]Ids = ["water", "coast", "land"]
         //    Then bellow simply run indexOf instead of some
-        if (ranOnce === false) {
-          ranOnce = true;
-
+        if (!identitiesInCommon.length) {
           currCell.forEach((idInNeighbour) => {
             //  Trying to check if id is the ruleset
             //    Convert to a variable the original index to use underneath
@@ -131,36 +127,9 @@ export default (array, { y, x }) => {
               }
             });
           });
+          identitiesInCommon = identitiesInCommonTwo;
+          identitiesInCommonTwo = [];
           // ranOnce = false;
-        } else {
-          currCell.forEach((idInNeighbour) => {
-            console.log("---identitiesInCommonTwo---");
-            arrayClone[y][x].forEach((idInOriginal) => {
-              console.log("idInOriginal:", idInOriginal[0]);
-              console.log(
-                "complex index of:",
-                identitiesInCommonTwo.indexOf(
-                  idInNeighbour[1].rules[direction][
-                    idInNeighbour[1].rules[direction].indexOf(idInOriginal[0])
-                  ]
-                )
-              );
-              if (
-                idInNeighbour[1].rules[direction].indexOf(idInOriginal[0]) !==
-                  -1 &&
-                // If identities in common has the identity that the original cell has in common with the cells
-                identitiesInCommonTwo.indexOf(
-                  idInNeighbour[1].rules[direction][
-                    idInNeighbour[1].rules[direction].indexOf(idInOriginal[0])
-                  ]
-                ) !== -1
-              ) {
-                //  TODO:
-                //    Pushing the correct thing? should it be idInOriginal[0]?
-                identitiesInCommonTwo.push(idInOriginal[0]);
-              }
-            });
-          });
         }
         //  This was causing some of them to not be called
         //    probably because it was skipping the first if statement when coming back here?
