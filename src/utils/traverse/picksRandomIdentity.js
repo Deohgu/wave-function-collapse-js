@@ -26,6 +26,11 @@
 //    Another thing, the first in common identities with the currCell get tossed in the initial array
 //    Looking at the console.log, not all the in common identities get passed
 
+//  Currently used direction is not relevant because it points out the direction the original cell is when compared to the current neighbour
+//  But since we are looking at the rules in the neighbour we want the direction the original is in relation to the neighbour.
+//    i.e direction says north because we are checking the north neighbour, but we actually want to check south in the rules as original cell is south of it
+//  For now it works as all of them are the same, but it's a future fix
+
 import {
   allDirections,
   validSearchDirections,
@@ -70,38 +75,95 @@ export default (array, { y, x }) => {
         if (ranOnce === false) {
           ranOnce = true;
 
-          currCell.forEach((idInCurr) => {
+          currCell.forEach((idInNeighbour) => {
             //  Trying to check if id is the ruleset
             //    Convert to a variable the original index to use underneath
-            console.log("idInCurr:", idInCurr);
+            console.log("idInNeighbour:", idInNeighbour);
             console.log("---identitiesInCommon---");
             arrayClone[y][x].forEach((idInOriginal) => {
               console.log("idInOriginal:", idInOriginal[0]);
-              if (idInCurr[1].rules[direction].indexOf(idInOriginal[0])) {
+              if (
+                idInNeighbour[1].rules[direction].indexOf(idInOriginal[0]) !==
+                -1
+              ) {
                 identitiesInCommon.push(idInOriginal[0]);
               }
             });
           });
-        } else {
-          currCell.forEach((idInCurr) => {
+        } else if (!identitiesInCommonTwo.length) {
+          //  TODO:
+          //    Bad identities are being passed here
+          //      In on example it contained identities that the original Cell did not contain
+          //        Check there, only pass things that the original cell contains
+
+          //    Should there be an update of the initial one array?
+          //      firdt array is created
+          //      second is updated when creating a new one
+          //      first array is equal to second
+          //      second is emptied
+          //      rinse and repear
+
+          currCell.forEach((idInNeighbour) => {
             console.log("---identitiesInCommonTwo---");
             arrayClone[y][x].forEach((idInOriginal) => {
               console.log("idInOriginal:", idInOriginal[0]);
-              if (idInCurr[1].rules[direction].indexOf(idInOriginal[0])) {
-                const indexIfEqual = identitiesInCommon.findIndex(
-                  (idInCommonId) => idInCurr[0] === idInCommonId
-                );
-
-                if (indexIfEqual !== -1) {
-                  identitiesInCommonTwo.push(idInCurr[0]);
-                }
+              console.log(
+                "complex index of:",
+                identitiesInCommon.indexOf(
+                  idInNeighbour[1].rules[direction][
+                    idInNeighbour[1].rules[direction].indexOf(idInOriginal[0])
+                  ]
+                )
+              );
+              if (
+                idInNeighbour[1].rules[direction].indexOf(idInOriginal[0]) !==
+                  -1 &&
+                // If identities in common has the identity that the original cell has in common with the cells
+                identitiesInCommon.indexOf(
+                  idInNeighbour[1].rules[direction][
+                    idInNeighbour[1].rules[direction].indexOf(idInOriginal[0])
+                  ]
+                ) !== -1
+              ) {
+                //  TODO:
+                //    Pushing the correct thing? should it be idInOriginal[0]?
+                identitiesInCommonTwo.push(idInOriginal[0]);
+              }
+            });
+          });
+          // ranOnce = false;
+        } else {
+          currCell.forEach((idInNeighbour) => {
+            console.log("---identitiesInCommonTwo---");
+            arrayClone[y][x].forEach((idInOriginal) => {
+              console.log("idInOriginal:", idInOriginal[0]);
+              console.log(
+                "complex index of:",
+                identitiesInCommonTwo.indexOf(
+                  idInNeighbour[1].rules[direction][
+                    idInNeighbour[1].rules[direction].indexOf(idInOriginal[0])
+                  ]
+                )
+              );
+              if (
+                idInNeighbour[1].rules[direction].indexOf(idInOriginal[0]) !==
+                  -1 &&
+                // If identities in common has the identity that the original cell has in common with the cells
+                identitiesInCommonTwo.indexOf(
+                  idInNeighbour[1].rules[direction][
+                    idInNeighbour[1].rules[direction].indexOf(idInOriginal[0])
+                  ]
+                ) !== -1
+              ) {
+                //  TODO:
+                //    Pushing the correct thing? should it be idInOriginal[0]?
+                identitiesInCommonTwo.push(idInOriginal[0]);
               }
             });
           });
         }
         //  This was causing some of them to not be called
         //    probably because it was skipping the first if statement when coming back here?
-        ranOnce = false;
         // prevArr = currCell;
 
         console.log("identitiesInCommon", identitiesInCommon);
@@ -146,6 +208,10 @@ export default (array, { y, x }) => {
         // );
         let randomValidIndentityIndex = 0;
         if (identitiesInCommonTwo.length) {
+          console.log(
+            "identitiesInCommonTwo.length",
+            identitiesInCommonTwo.length
+          );
           randomValidIndentityIndex = Math.floor(
             Math.random() * identitiesInCommonTwo.length
           );
@@ -156,15 +222,18 @@ export default (array, { y, x }) => {
             );
           });
         } else {
+          console.log(
+            "identitiesInCommonTwo.length",
+            identitiesInCommonTwo.length
+          );
           randomValidIndentityIndex = Math.floor(
             Math.random() * identitiesInCommon.length
           );
 
-          pickedIdentityIndex = arrayClone[y][x].findIndex((identity) => {
-            return (
+          pickedIdentityIndex = arrayClone[y][x].findIndex(
+            (identity) =>
               identity[0] === identitiesInCommon[randomValidIndentityIndex]
-            );
-          });
+          );
         }
 
         // pickedIdentityIndex = arrayClone[y][x].findIndex((identity) => {

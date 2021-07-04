@@ -10,6 +10,6 @@ export default {
     //  TODO:
     //  Improve this convertion, we want an array with each identity as an object
     //    Ideally use the getter in identities
-    grid: gridGenerator(8, 8, Object.entries(identities.state())),
+    grid: gridGenerator(3, 3, Object.entries(identities.state())),
   }),
 };
