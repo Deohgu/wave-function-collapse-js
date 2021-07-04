@@ -1,6 +1,6 @@
 import {
   allDirections,
-  validSearchDirections,
+  validDirections,
   conditionalDirections,
 } from "@/utils/traverse/directions";
 
@@ -9,20 +9,18 @@ export default (array, { y, x }) => {
   let arrayClone = JSON.parse(JSON.stringify(array));
   const validIdentitiesInCurrent = [];
   let pickedIdentityIndex = [];
+  let identitiesInCommon = [];
+  let identitiesInCommonTwo = [];
+  const directionNames = Object.keys(validDirections);
 
   conditionalDirections(y, x, array).forEach((isCorrectGridArea, index) => {
     if (isCorrectGridArea) {
-      const directionNames = Object.keys(validSearchDirections);
-      const currValidSearchDirections =
-        validSearchDirections[directionNames[index]];
+      const currValidDirections = validDirections[directionNames[index]];
 
-      let identitiesInCommon = [];
-      let identitiesInCommonTwo = [];
-
-      // console.log("currValidSearchDirections:", currValidSearchDirections);
+      // console.log("currValidDirections:", currValidDirections);
 
       //  Checks valid neighbouring cells
-      currValidSearchDirections.forEach((direction) => {
+      currValidDirections.forEach((direction) => {
         const currY = allDirections(y, x)[direction].y();
         const currX = allDirections(y, x)[direction].x();
         const currCell = array[currY][currX];
@@ -30,7 +28,6 @@ export default (array, { y, x }) => {
         // console.log("CELL:", currY, currX);
         // console.log("direction:", direction);
         // console.log("currCell:", currCell);
-        // OLD VERSION //
         if (!identitiesInCommon.length) {
           currCell.forEach((idInNeighbour) => {
             // console.log("idInNeighbour:", idInNeighbour);

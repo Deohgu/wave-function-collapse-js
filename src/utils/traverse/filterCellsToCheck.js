@@ -1,6 +1,6 @@
 import {
   allDirections,
-  validSearchDirections,
+  validDirections,
   conditionalDirections,
 } from "@/utils/traverse/directions";
 
@@ -9,9 +9,8 @@ export default (array, { y, x }) => {
 
   conditionalDirections(y, x, array).forEach((isCorrectGridArea, index) => {
     if (isCorrectGridArea) {
-      const directionNames = Object.keys(validSearchDirections);
-      const currValidSearchDirections =
-        validSearchDirections[directionNames[index]];
+      const directionNames = Object.keys(validDirections);
+      const currValidSearchDirections = validDirections[directionNames[index]];
 
       // console.log(directionNames[index]);
 
