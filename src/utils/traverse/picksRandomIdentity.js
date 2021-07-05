@@ -5,9 +5,7 @@ import {
 } from "@/utils/traverse/directions";
 
 export default (array, { y, x }) => {
-  const allowedIdentities = [];
   let arrayClone = JSON.parse(JSON.stringify(array));
-  const validIdentitiesInCurrent = [];
   let pickedIdentityIndex = [];
   let identitiesInCommon = [];
   let identitiesInCommonTwo = [];
@@ -34,11 +32,11 @@ export default (array, { y, x }) => {
             // console.log("---identitiesInCommon---");
             arrayClone[y][x].forEach((idInOriginal) => {
               const currNeighbourRules = idInNeighbour[1].rules[direction];
-              const currIdIndexInNeighbourRules = currNeighbourRules.indexOf(
+              const indexOfIdInRules = currNeighbourRules.indexOf(
                 idInOriginal[0]
               );
               // console.log("idInOriginal:", idInOriginal[0]);
-              if (currIdIndexInNeighbourRules !== -1) {
+              if (indexOfIdInRules !== -1) {
                 identitiesInCommon.push(idInOriginal[0]);
               }
             });
@@ -48,25 +46,19 @@ export default (array, { y, x }) => {
             // console.log("---identitiesInCommonTwo---");
             arrayClone[y][x].forEach((idInOriginal) => {
               const currNeighbourRules = idInNeighbour[1].rules[direction];
-              const currIdIndexInNeighbourRules = currNeighbourRules.indexOf(
+              const indexOfIdInRules = currNeighbourRules.indexOf(
                 idInOriginal[0]
               );
+              const validId = currNeighbourRules[indexOfIdInRules];
 
               // console.log("idInOriginal:", idInOriginal[0]);
               // console.log(
-              //   "complex index of:",
-              //   identitiesInCommon.indexOf(
-              //     currNeighbourRules[
-              //       currIdIndexInNeighbourRules
-              //     ]
-              //   )
+              //   "validId in identitiesInCommon:",
+              //   identitiesInCommon.indexOf(validId)
               // );
               if (
-                currIdIndexInNeighbourRules !== -1 &&
-                // If identities in common has the identity that the original cell has in common with the cells
-                identitiesInCommon.indexOf(
-                  currNeighbourRules[currIdIndexInNeighbourRules]
-                ) !== -1
+                indexOfIdInRules !== -1 &&
+                identitiesInCommon.indexOf(validId) !== -1
               ) {
                 identitiesInCommonTwo.push(idInOriginal[0]);
               }
@@ -81,26 +73,8 @@ export default (array, { y, x }) => {
 
         // console.log("TESTING -> currCell:", currCell);
         // console.log("TESTING -> direction:", direction);
-
-        currCell.forEach((identity) => {
-          const allowedIdentitiesPortion = identity[1].rules[direction];
-          allowedIdentitiesPortion.forEach((validIdentity) => {
-            // console.log("validIdentity", validIdentity);
-            if (allowedIdentities.indexOf(validIdentity) === -1) {
-              allowedIdentities.push(validIdentity);
-            }
-          });
-        });
       });
       ////////////////////////////////
-      arrayClone[y][x].forEach((currentIdentity) => {
-        if (
-          allowedIdentities.indexOf(currentIdentity[0]) !== -1 &&
-          validIdentitiesInCurrent.indexOf(currentIdentity[0]) === -1
-        ) {
-          validIdentitiesInCurrent.push(currentIdentity[0]);
-        }
-      });
 
       let randomValidIndentityIndex = 0;
       if (identitiesInCommonTwo.length) {
@@ -132,7 +106,6 @@ export default (array, { y, x }) => {
         );
       }
 
-      // console.log("allowedIdentities", allowedIdentities);
       // console.log("validIdentitiesInCurrent", validIdentitiesInCurrent);
       // console.log("randomValidIndentityIndex", randomValidIndentityIndex);
       // console.log("pickedIdentityIndex", pickedIdentityIndex);
