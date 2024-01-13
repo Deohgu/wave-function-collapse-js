@@ -16,6 +16,6 @@ export default (arrayClone, filteredCellsCoordsArray) => {
       return currentStackGroup;
     }
   });
-  console.log("current block:", currentStackGroup);
+
   return currentStackGroup;
 };

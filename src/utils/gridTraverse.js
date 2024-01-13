@@ -8,14 +8,7 @@ import sortAscending from "@/utils/traverse/sortAscending";
 let updatedArray = [];
 
 export const gridTraverse = (array, coordsCallStack) => {
-  // const t0Root = performance.now();
-  console.log("--START------------------------------------------");
   if (coordsCallStack.length > 0) {
-    console.log(
-      "ORIGINAL CELL array:",
-      array[coordsCallStack[0].y][coordsCallStack[0].x]
-    );
-    console.log("ORIGINAL CELL:", coordsCallStack[0].y, coordsCallStack[0].x);
     let arrayClone = JSON.parse(JSON.stringify(array));
     let coordsCallStackClone = JSON.parse(JSON.stringify(coordsCallStack));
 
@@ -51,8 +44,6 @@ export const gridTraverse = (array, coordsCallStack) => {
 
     gridTraverse(arrayClone, coordsCallStackClone);
   }
-  // const t1Root = performance.now();
-  // console.count("Current run:");
-  // console.log("Bottom:", t1Root - t0Root, "ms");
+
   return updatedArray;
 };

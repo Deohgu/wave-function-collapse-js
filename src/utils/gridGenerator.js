@@ -1,5 +1,4 @@
 export default (width, height, identities) => {
-  // console.log("identities: ", identities);
   const generatedArr = [[]];
   for (let i = 0; i < height; i++) {
     generatedArr[i] = [];
@@ -11,6 +10,5 @@ export default (width, height, identities) => {
     }
   }
 
-  // console.log("generatedArr: ", generatedArr);
   return generatedArr;
 };

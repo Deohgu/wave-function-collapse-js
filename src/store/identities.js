@@ -64,7 +64,6 @@ export default {
   mutations: {
     waterUpdate(state, payload) {
       state.water = { ...state.water, ...payload };
-      // console.log("waterUpdate : ", state, payload);
     },
     coastUpdate(state, payload) {
       state.coast = payload;

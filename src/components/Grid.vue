@@ -18,14 +18,6 @@
 
 <script>
 import Cell from "@/components/Cell.vue";
-// import gridGenerator from "@/utils/gridGenerator";
-// import store from "@/store";
-// import { mapGetters } from "vuex";
-
-// store updating testing
-// console.log("store.state.water: ", store.state.identities.water);
-// store.dispatch("updateIndentity", { water: { colour: "pink" } });
-// console.log("store.state.water: ", store.state.identities.water);
 
 export default {
   name: "grid",

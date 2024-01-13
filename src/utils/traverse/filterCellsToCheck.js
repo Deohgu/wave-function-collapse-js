@@ -12,10 +12,6 @@ export default (array, { y, x }) => {
       const directionNames = Object.keys(validDirections);
       const currValidSearchDirections = validDirections[directionNames[index]];
 
-      // console.log(directionNames[index]);
-
-      console.log("currValidSearchDirections:", currValidSearchDirections);
-
       //  Checks valid neighbouring cells
       currValidSearchDirections.forEach((direction) => {
         const currY = allDirections(y, x)[direction].y();
